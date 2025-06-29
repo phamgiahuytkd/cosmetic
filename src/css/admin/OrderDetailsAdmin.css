@@ -1,0 +1,127 @@
+.order-details-admin-container {
+    padding: 20px;
+  }
+  
+  .order-details-admin-container h1 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Đảm bảo padding không vượt chiều rộng */
+  }
+  
+  .order-info {
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+  
+  .order-details-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .order-details-admin-table th,
+  .order-details-admin-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Sửa lại phần order-details-admin-actions để các nút nằm ngang và có kích thước bằng nhau */
+  .order-details-admin-actions {
+    display: flex;
+    justify-content: space-between; /* Đảm bảo không gian giữa các phần */
+    align-items: center; /* Căn giữa các phần */
+    background-color: #858585; /* Màu nền xám nhạt */
+    padding: 20px;
+    margin-top: 50px;
+  }
+  
+  .order-details-admin-total-amount {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /* Các nút Từ chối và Chấp nhận */
+  .order-details-admin-reject-button,
+  .order-details-admin-accept-button {
+    padding: 15px; /* Tăng kích thước của nút */
+    background-color: #ff0329; /* Màu nền mặc định */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: 80%; /* Đảm bảo hai nút có chiều rộng bằng nhau */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+    margin: 10px;
+    font-weight: bold;
+  }
+  
+  .order-details-admin-reject-button:hover {
+    background-color: #d9363e;
+  }
+  
+  .order-details-admin-accept-button {
+    background-color: #35da3b;
+  }
+  
+  .order-details-admin-accept-button:hover {
+    background-color: #388e3c;
+  }
+  
+
+  
+  .order-admin-status.refused {
+    color: rgb(125, 123, 123);
+  }
+
+
+  .order-admin-status.processing {
+    color: rgb(0, 145, 255);
+  }
+  
+  .order-admin-status.approved {
+    color: green;
+  }
+  
+  .order-admin-status.cancelled {
+    color: red;
+  }
+
+
+/* //////////////////////////////////// */
+
+  .product-details-container h1 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    
+    display: flex; /* Sử dụng flexbox để căn chỉnh */
+    justify-content: space-between; /* Đảm bảo khoảng cách giữa "Chi tiết Sản Phẩm" và nút "+" */
+    align-items: center; /* Căn giữa theo chiều dọc */
+  }
+  
+  .product-details-container h1 button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .product-details-container h1 button:hover {
+    background-color: #0056b3;
+  }
+  

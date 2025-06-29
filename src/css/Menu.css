@@ -1,0 +1,464 @@
+
+
+/* ////////New////////////// */
+
+.content-user{
+  margin-top: 6.5rem;
+}
+/* Khi mobile */
+.menu-user {
+  padding: 1rem 4rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 999;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  list-style-type: none;
+}
+
+.menu-user.hovered {
+  background-color: #eee;
+}
+
+.menu-user-left h1 a {
+  overflow: hidden;
+}
+
+.menu-user-left img{
+  position: absolute;
+  top: 0; /* Điều chỉnh vị trí theo nhu cầu */
+  left: 3rem;
+  z-index: 1000;
+  height: 8rem;
+  
+}
+
+.menu-user-right{
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  gap: 1rem;
+}
+
+
+
+
+
+
+.menu-user-list  {
+  display: flex;
+  list-style: none;
+  width: 60%;
+}
+
+/* Thẻ li cha - BO GÓC */
+.menu-user-list li {
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  list-style-type: none;  
+  align-items: center;
+  justify-content: left;
+  position: relative;
+   /* Bo góc cho thẻ li cha */
+}
+
+
+.menu-user-list li svg{
+  font-size: larger;
+  margin-left: 0.5rem;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+
+
+.menu-user-list  > li a,
+.menu-user-list  > li span,
+.menu-user-list  > li h1 {/* Màu chữ trắng cho sản phẩm */
+  text-decoration: none; /* Bỏ gạch dưới cho các liên kết */
+  font-size: medium;
+  font-weight: 500;
+  color: #000;
+}
+
+
+.menu-user-list  > li:hover > a,
+.menu-user-list  > li:hover > span,
+.menu-user-list  > li:hover h1 {
+  color: #0056b3; /* Chuyển màu chữ của các phần tử con khi hover */
+}
+
+.menu-user-list  > li:hover svg{
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+
+}
+
+
+.menu-user-list ul {
+  width: max-content;
+  min-width: 100%;
+  opacity: 0;
+  padding-top: 2.5rem;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: -0.4rem;
+  left: -1rem;
+  flex-direction: column;
+  border-radius: 0.2rem;
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  z-index: 100;
+  
+}
+
+.menu-user-list ul div{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.menu-user-list li:hover ul {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
+/* Thẻ li con - không bo góc */
+.menu-user-list  ul li {
+  list-style: none;
+  line-height: 2.5rem;
+  background-color: rgba(255, 255, 255, 1);
+  text-align: left;
+  justify-content: left;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid #cccccc69;
+  
+  /* Không bo góc ở đây */
+}
+
+
+  .menu-user-list  ul li:hover a {
+      color: #f783ff; /* Màu chữ trắng cho link khi hover */
+  }
+  
+.menu-user-list  ul li a {
+  text-decoration: none;
+  color: #000000;
+}
+
+
+  
+
+
+  .menu-user-tool{
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+    gap: 6rem;
+    align-items: center;
+    position: relative;
+  }
+  
+
+  @media (max-width: 1386px) {
+    .menu-user-tool{
+      grid-template-columns: 2fr 3fr;
+    }
+
+  }
+
+
+  
+   .search-input-wrapper {
+    position: relative;
+  }
+  
+  
+  .menu-user-tool input.seach {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 0.7rem;
+    width: 100%;
+    background-color: #dfdfdf42;
+    color: black;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.186);
+    transition: box-shadow 0.3s ease;
+  }
+
+
+  .menu-user-tool .search-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .menu-user-tool input.seach:hover {
+    box-shadow: 0 0 6px #0057b37e; /* shadow nhẹ khi hover */
+  }
+
+
+  .menu-user-tool .search-btn i {
+    color: #000000;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    transform: scale(1) translateX(0);
+    background-color: none;
+  }
+
+
+  .menu-user-tool .search-btn:hover i {
+    color: #333;
+    box-shadow: 0 0 10px #0057b37e;
+    padding: 0.5rem 0.5rem ;
+    border-radius: 100%;
+    transition: all 0.3s ease;
+    transform: scale(1.5) translateX(0.3rem);
+    color: #0056b3;
+    
+  }
+
+  .menu-user-tool ul{
+    justify-content: flex-end;
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin-left: 5rem;
+  }
+  
+    /* Các phần tử li trong menu công cụ */
+    .menu-user-tool ul li {
+      flex: 1;
+      display: flex;
+      list-style-type: none;
+      color: rgb(0, 0, 0);
+      font-size: large;
+      
+      text-align: center;
+      justify-content: center;
+      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s ease-in-out;
+      border-radius: 0.5rem;
+    }
+    
+  
+    /* Link trong menu công cụ */
+    .menu-user-tool ul li a {
+      display: flex;
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-size: medium;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+    }
+  
+
+  
+  /* Hover vào li cha */
+  .menu-user-tool  ul  li:hover {
+    background-color: white;
+    color: #0056b3; /* Chuyển màu chữ thành #535EAC khi hover */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* shadow nội */
+  }
+  
+  /* Đảm bảo khi hover vào li cha thì cả các phần tử con (a và span) cũng thay đổi màu */
+  .menu-user-tool > ul > li:hover > a{
+    color: #0056b3; /* Chuyển màu chữ của các phần tử con khi hover */
+  }
+
+  .menu-user-tool-icon{
+    font-size: large;
+  }
+
+
+  .menu-user-tool .menu-user-account{
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .menu-user-tool .menu-user-account li a{
+    margin: 0;
+    padding: 0.5rem 0.5rem;
+    font-size: small;
+    font-weight: bold;
+  }
+
+  .menu-user-tool .menu-user-account li:last-child {
+    border: 0.1rem solid #f0a0bb;
+    border-radius: 0.5rem;
+    background-color: #f0a0bb50;
+    color: #333;
+  }
+
+
+  .menu-user-tool .menu-user-account li:last-child:hover{
+    background-color: #ffbfd4;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu-user-tool .menu-user-account li:last-child:hover > a{
+    color: #ffffff;
+  }
+
+  .menu-user-account li:hover ul {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .menu-user-account ul{
+    width: 20rem;
+    opacity: 0;
+    padding-top: 3.5rem;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    border-radius: 0.2rem;
+    text-align: center;
+    z-index: 100;
+  }
+
+  .menu-user-account-tool{
+    background-color: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    
+  }
+
+  .menu-user-account-tool h4{
+    font-weight: bold;
+    border-bottom: 0.1rem solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+  }
+
+  
+  .menu-user-account-tool > h4 > img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+  }
+
+
+  .menu-user-account-tool li{
+    margin-top: 1rem;
+  }
+  
+  .menu-user-account .menu-user-account-tool li a{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  
+
+
+        
+
+  .menu-user-account-tool li:last-child a{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #ff527b;
+    padding: 0.8rem;
+  }
+
+  .menu-user-account-tool li a svg{
+    font-size: x-large;
+    color: #000000;
+  }
+
+  .menu-user-account-tool li a span{
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-size: medium;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      font-weight: 400;
+  }
+
+  
+
+  
+
+
+  .menu-user-account-tool::before {
+    content: "";
+    position: absolute;
+    top: 2.8rem; /* nằm trên div */
+    right: 5rem; /* điều chỉnh vị trí ngang của mũi tên */
+    width: 0;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 1rem solid #ffffff; /* cùng màu với nền của tool */
+  }
+
+
+
+  .cart-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    bottom: 0; /* Điều chỉnh để căn giữa hơn */
+    left: -1rem; /* Điều chỉnh để căn giữa hơn */
+ 
+    color: #ff0000;
+    font-size: smaller; /* Đặt lại kích thước font cho phù hợp */
+    padding: 0.2rem 0.3rem;
+    border-radius: 50%; /* Tạo hình tròn */
+  }
+  
+    .custom-toast-container {
+      top: 3.5rem;
+      /* Di chuyển toast xuống thấp hơn */
+    }
+
+
+
+
+
+/* ///////////////// */
+/* Mặc định */
+
+@media (max-width: 1076px) {
+  .menu-user {
+    display: none;
+    /* Ẩn MenuDesktop */
+  }
+}
+
+@media (min-width: 1077px) {
+  .user-menu-mobile {
+    display: none;
+    /* Ẩn MenuMobile */
+  }
+}

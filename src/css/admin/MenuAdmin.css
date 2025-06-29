@@ -1,0 +1,57 @@
+/* admin-container */
+.admin-container {
+  display: flex; /* Sử dụng flexbox để xếp hai phần tử theo hàng ngang */
+  height: 100vh; /* Chiều cao đầy đủ màn hình */
+  overflow: hidden; /* Ẩn cuộn ngang nếu có */
+  margin: 0; 
+}
+
+/* Menu bên trái */
+.menu-admin {
+  width: 230px; /* Chiều rộng cố định cho menu */
+  background-color: #333; /* Màu nền */
+  color: #fff; /* Màu chữ */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh; /* Chiều cao của menu sẽ bằng với chiều cao của container */
+}
+
+/* Nội dung bên phải */
+.admin-container .content {
+  flex-grow: 1; /* Chiếm toàn bộ không gian còn lại */
+  padding: 20px;
+  background-color: #f4f4f4; /* Màu nền khác biệt */
+  overflow-y: auto; /* Cuộn dọc nếu nội dung vượt quá */
+}
+
+/* Các liên kết trong menu */
+.menu-admin ul {
+  list-style: none; /* Bỏ dấu đầu dòng */
+  padding: 0;
+  margin: 0;
+}
+
+.menu-admin ul li {
+  width: 100%;
+  margin-bottom: 15px; /* Khoảng cách giữa các mục */
+}
+
+.menu-admin ul li a {
+  color: #fff; /* Màu chữ */
+  text-decoration: none; /* Bỏ gạch chân */
+  font-size: 16px;
+  display: block; /* Toàn bộ thẻ <a> là một khối */
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.menu-admin ul li a:hover {
+  background-color: #555; /* Màu nền khi hover */
+}
+
+/* Màu khi đường dẫn đang được chọn */
+.menu-admin ul li a.active {
+  background-color: #007bff; /* Ví dụ màu xanh khi chọn */
+  color: #fff; /* Màu chữ khi chọn */
+}

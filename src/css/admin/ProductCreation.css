@@ -1,0 +1,130 @@
+/* Đảm bảo container chiếm toàn bộ chiều rộng */
+.product-creation-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Định dạng form */
+.product-creation-form {
+    width: 100%;
+    max-width: 800px; /* Đồng nhất với danh sách sản phẩm */
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Cập nhật h1 để bít luôn form */
+.product-creation-form > h1 {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    margin: 0; /* Loại bỏ margin để full width */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    text-align: center;
+}
+
+/* Đảm bảo các thành phần trong form có chiều rộng bằng form */
+.product-creation-form div {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Các input, select, textarea đều full chiều rộng */
+.product-creation-form input,
+.product-creation-form select,
+.product-creation-form textarea,
+.ql-container {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Nút bấm full width */
+.product-creation-form button {
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.product-creation-form button:hover {
+    background-color: #218838;
+}
+
+/* Điều chỉnh checkbox */
+.checkbox-selection-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.checkbox-selection-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+/* Điều chỉnh phần chọn màu */
+.color-selection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Điều chỉnh phần chọn file */
+.file-upload-container {
+    width: 100%;
+    text-align: center;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+.custom-file-label:hover {
+    background-color: #0056b3;
+}
+
+/* Ảnh xem trước */
+.image-preview-container {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-creation-form {
+        width: 90%;
+    }
+}

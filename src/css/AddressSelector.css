@@ -1,0 +1,133 @@
+
+
+/* Dropdown (cập nhật lại cho menu chiếm toàn bộ không gian và thêm padding, nền trắng, shadow) */
+.user-checkout-address-dropdown {
+  position: absolute;
+  top: -12%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  /* Nền trắng */
+  border: 1px solid #ddd;
+  /* Viền nhẹ */
+  border-radius: 8px;
+  z-index: 10;
+  margin-top: 8px;
+  padding: 16px;
+  /* Padding dài hơn để bao quanh nội dung */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Box-shadow */
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  height: 25rem;
+}
+
+.user-checkout-address-dropdown.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Các phần tử con trong dropdown không có nền, viền hay shadow */
+.user-checkout-address-dropdown>* {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Các phần tử con trong dropdown cần được bao quanh bởi padding */
+.user-checkout-address-dropdown .user-checkout-address-select__menu,
+.user-checkout-address-dropdown .css-1nmdiq5-menu {
+  background: transparent;
+  /* Không có nền */
+  border: none;
+  box-shadow: none;
+  padding: 10px;
+  /* Padding cho các phần tử con */
+}
+
+/* Tabs */
+.user-checkout-address-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.user-checkout-address-tab {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-checkout-address-tab.active {
+  border-bottom: 2px solid #007bff;
+  color: #007bff;
+}
+
+/* Select wrapper */
+.user-checkout-address-select-wrapper {
+  margin-top: 8px;
+}
+
+/* Select styling */
+.user-checkout-address-select {
+  font-size: 14px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.user-checkout-address-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Error */
+.user-checkout-input-error {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Footer button */
+.user-checkout-address-footer {
+  margin-top: 12px;
+  text-align: right;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.user-checkout-address-confirm-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.user-checkout-address-confirm-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  /* Thêm hiệu ứng khi hover */
+}
+
+/* Optional: Added transition for input focus */
+
+
+.user-checkout-input-field:focus {
+  background-color: transparent;
+}

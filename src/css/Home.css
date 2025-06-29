@@ -1,0 +1,348 @@
+.user-home-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+
+
+/* ////////Slide///////////// */
+.swiper-container{
+  height: 32rem;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+  height: 100%;
+}
+
+.swiper-container .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.swiper-container .swiper-button-next,
+.swiper-container .swiper-button-prev {
+  opacity: 0;
+  visibility: hidden;
+  color: #fff; /* đổi màu */
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  padding: 2rem 1rem;
+  background-color: #0000002a;
+  border-radius: 10%;
+  transition: all 0.3s ease;
+}
+
+.swiper-container .swiper-button-prev {
+  transform: translateX(-2rem); /* di chuyển sang trái cho prev */
+}
+
+.swiper-container .swiper-button-next {
+  transform: translateX(2rem); /* di chuyển sang trái cho prev */
+}
+
+.swiper-container .swiper-button-next:hover,
+.swiper-container .swiper-button-prev:hover {
+  color: #0000002a;
+  background-color: #ffffff92;
+  transition: all 0.3s ease;
+}
+
+
+.swiper-container:hover .swiper-button-next,
+.swiper-container:hover .swiper-button-prev {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0); /* trở lại vị trí cũ */
+}
+
+
+.swiper-container .swiper-pagination-bullet {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: #ccc;
+  opacity: 1;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin: 0 4px;
+}
+
+.swiper-container .swiper-pagination-bullet-active {
+  width: 1.2rem;               /* Kéo dài hình chữ nhật */
+  height: 0.4rem;
+  border-radius: 4px;         /* Bo tròn nhẹ cho hình chữ nhật */
+  background-color: #ff71d489;  /* Màu khác cho bullet active */
+}
+
+/* ///////// Danh muc//////////// */
+
+
+.user-home-category{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-home-category > h2{
+  text-decoration: underline;
+}
+
+
+.user-home-category-gallery-container {
+  max-width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.user-home-category-main-swiper {
+  width: 100%;
+  height: 25rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 20;
+
+}
+
+.user-home-category-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.user-home-category-thumb-swiper {
+  margin-top: 1rem;
+  height: 8rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.user-home-category-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  opacity: 0.5;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.swiper-slide-thumb-active .user-home-category-thumb-img {
+  opacity: 1;
+}
+
+.user-home-category-autoplay-progress {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--swiper-theme-color);
+}
+
+.user-home-category-autoplay-progress svg {
+  --progress: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.4rem;
+  stroke: white;
+  fill: none;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+}
+
+.user-home-category-progress-text {
+  position: absolute;
+  color: white;
+  font-size: medium;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+/* ////////Khuyen mai//////////// */
+.user-home-discount{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-home-discount-container{
+  width: 90%;
+  padding: 2%;
+  background: linear-gradient(135deg, #74585d, #100c0d);
+  /* #73585c #100c0d */
+
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.user-home-discount-container .user-navigation-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+}
+
+.user-home-discount-container > h2{
+  color: #fff;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.user-home-discount-container>h2>div{
+  color: #000;
+  background-color: #ffcccc;
+  font-size: x-small;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 100;
+}
+
+.user-home-discount-container>h2>div>p{
+  font-size: medium;
+  font-weight: 700;
+}
+
+
+
+
+
+.user-home-discount-container a {
+  color: #fff;
+  
+  text-decoration: none;
+}
+
+.user-home-discount-container a h3{
+  font-weight: 100;
+}
+
+
+.user-home-discount-product-container {
+  width: 100%;
+}
+
+.user-home-discount-swiper {
+  width: 100%;
+}
+
+.user-home-discount-slide {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+
+
+
+/* ////////Thuong Hieu////////// */
+.user-home-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-home-brand>h2 {
+  text-decoration: underline;
+}
+
+
+.user-home-brand-gallery-container {
+  max-width: 90%;
+  margin: 0 auto;
+  height: auto;
+  position: relative;
+}
+
+
+.user-home-brand-swiper {
+  width: 100%;
+  height: 99%;
+  padding: 1% 0;
+  border-radius: 1rem;
+  position: relative;
+  z-index: 20;
+}
+
+.user-home-brand-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+/* ////////san pham moi//////////// */
+.user-home-new {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-home-new-container {
+  width: 90%;
+  padding: 2%;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffcccc;
+  position: relative;
+}
+
+.user-home-new-container .user-navigation-button{
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+}
+
+.user-home-new-container>h2 {
+  color: #fff;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}

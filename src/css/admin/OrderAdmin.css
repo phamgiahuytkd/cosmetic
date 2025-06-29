@@ -1,0 +1,122 @@
+/* Container tổng */
+.order-admin-container {
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+  }
+  
+  /* Tiêu đề chiếm toàn bộ chiều ngang */
+  .order-admin-title {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box; /* Đảm bảo padding không vượt chiều rộng */
+  }
+  
+  /* Bảng người dùng */
+  .order-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px; /* Bo góc bảng */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Hiệu ứng shadow */
+  }
+  
+  /* Phần đầu bảng */
+  .order-admin-table thead {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .order-admin-table th,
+  .order-admin-table td {
+    text-align: center; /* Căn giữa tiêu đề cột */
+    padding: 12px; /* Khoảng cách trong ô */
+    border-bottom: 2px solid #ddd; /* Tạo đường ngăn cách rõ ràng */
+    justify-content: center;
+    margin: 0;
+  }
+
+  
+  /* Phần thân bảng với màu xen kẽ */
+  .order-admin-table tbody tr:nth-child(odd) {
+    background-color: #fff; /* Hàng lẻ: trắng */
+  }
+  
+  .order-admin-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Hàng chẵn: xám nhạt */
+  }
+  
+  /* Hiệu ứng hover cho cả hàng */
+  .order-admin-table tbody tr:hover {
+    background-color: #e0e0e0; /* Màu nền khi hover */
+  }
+  
+
+  .order-admin-status.refused {
+    color: rgb(125, 123, 123);
+  }
+
+
+  .order-admin-status.processing {
+    color: rgb(0, 145, 255);
+  }
+  
+  .order-admin-status.approved {
+    color: green;
+  }
+  
+  .order-admin-status.canceled {
+    color: red;
+  }
+
+
+
+  /* ============== */
+  
+
+
+  .order-admin-details-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    align-items: center;
+    font-size: 14px;
+    transition: all 0.5s ease;
+  }
+  
+  .order-admin-details-button i {
+    font-size: 25px; 
+    color: #000;/* Kích thước biểu tượng */
+  }
+  
+
+  .order-admin-details-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .product-admin-logo {
+    width: 40px; /* Điều chỉnh kích thước logo */
+    height: 40px;
+    object-fit: contain;
+  }
+  
+
+
+  .order-admin-details-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  .order-admin-details-button:hover i{
+    color: #fff;
+  }
+  

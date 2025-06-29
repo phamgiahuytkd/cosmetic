@@ -1,0 +1,80 @@
+.form-search-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transform: translateX(100%); /* Ẩn hoàn toàn */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.form-search-container.visible {
+  transform: translateX(0); /* Hiện form */
+}
+
+.form-search-container .search-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.form-search-container h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-search div {
+  margin-bottom: 15px;
+}
+
+.form-search label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-search input,
+.form-search select,
+.form-search button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-search button {
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.form-search button:hover {
+  background: #0056b3;
+}
+
+/* Thêm style cho thanh trượt */
+.range-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.range-container input[type="range"] {
+  width: 45%;
+  margin: 0 10px;
+}
+
+.range-container span {
+  width: 50%;
+  text-align: center;
+  font-size: 14px;
+}

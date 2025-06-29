@@ -1,0 +1,142 @@
+/* Overlay background */
+.user-info-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Modal container */
+.user-info-popup-modal {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Modal title */
+.user-info-popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form field */
+.user-info-popup-field {
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.user-info-popup-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.user-info-popup-field input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.user-info-popup-field input:focus {
+  border-color: #3b82f6;
+  /* blue-500 */
+}
+
+/* Error message */
+.user-info-popup-error {
+  color: #dc2626;
+  /* red-600 */
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+
+
+/* Action buttons */
+.user-info-popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.user-info-popup-actions button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.user-info-popup-actions button:first-child {
+  background-color: #3b82f6;
+  /* blue */
+  color: white;
+}
+
+.user-info-popup-actions button:first-child:hover {
+  background-color: #2563eb;
+}
+
+.user-info-popup-actions button:last-child {
+  background-color: #e5e7eb;
+  /* gray-200 */
+  color: #111827;
+}
+
+.user-info-popup-actions button:last-child:hover {
+  background-color: #d1d5db;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .user-info-popup-modal {
+    max-width: 90%;
+    padding: 16px;
+  }
+
+  .user-info-popup-title {
+    font-size: 18px;
+  }
+
+  .user-info-popup-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-info-popup-actions button {
+    width: 100%;
+  }
+}

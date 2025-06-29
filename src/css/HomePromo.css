@@ -1,0 +1,139 @@
+.user-home-promo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.user-home-promo-title {
+  text-decoration: underline;
+}
+
+.user-home-promo-container {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.user-home-promo-swiper {
+  width: 100%;
+  border-radius: 1rem;
+  position: relative;
+  z-index: 20;
+  height: 10rem;
+}
+
+.user-home-promo-item {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 20rem;
+  height: 6.5rem;
+  max-height: 10rem;
+  border-radius: 1rem;
+}
+
+.user-home-promo-icon {
+  background-color: pink;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xxx-large;
+  height: 100%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.user-home-promo-icon svg{
+  transform: rotate(90deg);
+}
+
+.user-home-promo-content {
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.user-home-promo-content>div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.user-home-promo-content>div:last-child {
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+}
+
+.user-home-promo-condition h4 {
+  font-size: small;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-home-promo-condition p {
+  font-size: x-small;
+  font-weight: 400;
+  margin: 0.25rem 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* giới hạn 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1;
+  max-height: calc(1.2rem * 2);
+}
+
+.user-home-promo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow: hidden;
+}
+
+.user-home-promo-info p {
+  font-size: x-small;
+  margin: 0;
+}
+
+.user-home-promo-code {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-home-promo-code strong {
+  font-weight: 600;
+}
+
+.user-home-promo-button {
+  background-color: #f88fa1;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: fit-content;
+  color: white;
+  font-size: x-small;
+}
+
+.user-home-promo-button:hover {
+  background-color: #e47a8c;
+}
+
+
+
+
+/* //////////////// */

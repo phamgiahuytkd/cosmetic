@@ -1,0 +1,40 @@
+.user-navigation-button {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Nút bình thường */
+.user-navigation-button button {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  font-size: x-large;
+  padding: 0.3rem;
+  color: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+  border: none;
+  /* ❌ Xóa viền mặc định */
+  cursor: pointer;
+}
+
+/* Hiệu ứng khi hover */
+.user-navigation-button button:hover:not(:disabled) {
+  background: rgb(194, 238, 255);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Trạng thái bị vô hiệu hóa (khi tới giới hạn swiper) */
+.user-navigation-button button:disabled {
+  opacity: 0.3;
+  /* Mờ đi */
+  pointer-events: none;
+  /* Không click được */
+  box-shadow: none;
+  /* Không có hiệu ứng viền */
+  transform: none;
+  /* Không scale */
+}

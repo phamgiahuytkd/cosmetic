@@ -1,0 +1,239 @@
+.add-color-option-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50vh; /* Bao phủ toàn bộ chiều rộng màn hình */
+    height: 110vh; /* Bao phủ toàn bộ chiều cao màn hình */
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .add-color-option-container.show {
+    opacity: 1; /* Hiển thị */
+    pointer-events: auto;
+  }
+  
+  .add-color-option {
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    height: 100%; /* Chiếm toàn bộ chiều cao */
+    background-color: #fff; /* Nền trắng */
+    padding: 0 0;
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+    border-radius: 0; /* Bỏ viền bo tròn (nếu cần) */
+    box-shadow: none; /* Bỏ bóng đổ (nếu cần) */
+    display: flex; /* Đảm bảo bố cục linh hoạt */
+    flex-direction: column; /* Sắp xếp nội dung theo chiều dọc */
+    gap: 20px; /* Khoảng cách giữa các phần tử */
+  }
+  
+
+  
+  .add-color-option-container h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .add-color-option-container label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .add-color-option-container input[type="text"],
+  .add-color-option-container input[type="number"],
+  .add-color-option-container input[type="checkbox"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .add-color-option-container input[type="text"]:focus,
+  .add-color-option-container input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    font-weight: bold;
+  }
+  
+  .add-color-option-container button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-color-option-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-color-option-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .add-color-option-container input[type="checkbox"]:checked {
+    background-color: #28a745;
+  }
+  
+
+
+/* /////////////// */
+
+.add-color-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  .add-color-button:hover {
+    background-color: #0056b3;
+  }
+
+  
+
+  .add-color-option-container {
+    height: 100vh;
+    padding: 20px;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+  }
+  
+  .add-color-option {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-color-option h3 {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin: -20px -20px 20px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .add-color-option label {
+    margin-bottom: 10px;
+  }
+  
+  .add-color-option input[type="number"],
+  .add-color-option select,
+  .add-color-option input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* .add-color-option .image-preview {
+    margin-top: 10px;
+  }
+  
+  .add-color-option .preview-img {
+    max-width: 200px;
+    margin-top: 10px;
+  } */
+  
+  /* .add-color-option select {
+    background-color: #fff;
+
+  } */
+  
+  .add-color-option button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .add-color-option button:hover {
+    background-color: #0056b3;
+  }
+
+
+
+  /* ////////// */
+  /* Căn giữa nội dung trong label */
+.add-color-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Căn giữa theo chiều ngang */
+    align-items: center;      /* Căn giữa theo chiều dọc */
+    text-align: center;       /* Đảm bảo văn bản được căn giữa */
+    margin-top: 10px;         /* Khoảng cách phía trên */
+    background-color: #007bff;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-color-image span{
+    color: white;
+  }
+
+  .add-color-image  .image-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Căn giữa ảnh */
+    margin-top: 10px;
+  }
+  
+  .add-color-image .preview-img {
+    max-width: 100%;  /* Giới hạn kích thước ảnh */
+    max-height: 200px; /* Giới hạn chiều cao ảnh */
+    object-fit: contain; /* Đảm bảo ảnh không bị méo */
+  }
+  
+
+
+
+
+  /* ///////// */
+  .add-color-image input {
+    display: none; /* Ẩn input gốc */
+  }
+
+  .add-color-image:hover {
+    background-color: #0056b3;
+  }
+
+
+  .add-color-option-container input[type="checkbox"] {
+    width: 20px;  /* Kích thước chiều rộng */
+    height: 20px; /* Kích thước chiều cao */
+    margin-right: 10px;  /* Khoảng cách bên phải */
+    accent-color: #007bff; /* Thay đổi màu sắc khi checkbox được chọn */
+    transform: scale(0.8); /* Giảm kích thước của checkbox */
+  }
+  
+  /* Nếu checkbox được chọn, thay đổi màu nền */
+  .add-color-option-container input[type="checkbox"]:checked {
+    background-color: #28a745; /* Màu khi được chọn */
+    border-color: #28a745;
+  }
+  

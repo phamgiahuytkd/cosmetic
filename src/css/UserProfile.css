@@ -1,0 +1,130 @@
+.user-profile-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  justify-content: center;
+  width: 90%;
+}
+
+@media (max-width: 812px) {
+  .user-profile-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+
+.user-profile-title {
+  font-size: x-large;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.user-profile-detail{
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 2px solid #b8b8b8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.user-profile-detail button{
+  padding: 0.3rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: x-small;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: linear-gradient(135deg, #9dc3ff, rgb(0, 128, 179));
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  color: white;
+  border-radius: 0.2rem;
+}
+
+
+.user-profile-detail button:hover{
+  background: white;
+  color: rgb(48, 196, 255);
+  box-shadow: 0 0 0 6px rgba(48, 196, 255, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.user-profile-detail button > svg{
+  font-size: small;
+  vertical-align: text-bottom;
+  margin-left: 0.3rem;
+}
+
+
+
+.user-profile-field {
+  display: flex;
+}
+
+.user-profile-label {
+  width: 6.5rem;
+  font-weight: 550;
+  font-size: medium;
+  color: #005b99;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.user-profile-value {
+  color: #222;
+  font-weight: 400;
+  font-size: large;
+}
+
+
+
+.user-profile-right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-profile-avatar{
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eaeaea;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.user-profile-right button{
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  color: white;
+  background: linear-gradient(135deg, pink, #fa5f9d);
+  font-size: medium;
+  font-weight: 500;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+
+}
+
+.user-profile-right button:hover {
+  background: white;
+  color: #ff6ca7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 6px rgba(255, 192, 203, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.user-profile-right button svg{
+  font-size: large;
+  margin-left: 0.4rem;
+  margin-bottom: 0.2rem;
+}

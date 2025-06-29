@@ -1,0 +1,193 @@
+/* body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+} */
+input[type = "file"]{
+    display: none;
+}
+.Content_container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: #232323;
+    color: #fff;
+    z-index: -3;
+}
+.Content_container::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#ccee66,#6e9623);
+    clip-path: circle(33.6% at 14% 100%);
+    box-shadow: 0px 10px 30px 30px #ccee66;
+}
+.Content_container::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#ccee66,#6e9623);
+    clip-path: circle(22.4% at 95% 0);
+    box-shadow: 0px 10px 30px 30px #ccee66;
+}
+.Info_Container{
+    width: 1050px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 30px 1fr;
+    gap: 20px;
+}
+.Update_list{
+    height: 370px;
+    background: rgba(255, 255, 255, 0.3);
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 725px;
+    border-radius: 20px;
+    margin-top: 100px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+.Info_list{
+    width: 300px;
+    height: 560px;
+    background-color:rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 3%;
+    margin-top: 100px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+.info_avt{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin: 30px auto 0px;
+    border-radius: 100%;
+    border: 1px solid #333;
+}
+.info_avt img{
+    width: 100%;
+    height: 110%;
+    object-fit: cover;
+    transform: scale(0.5);
+    color: #333;
+}
+.info-img .changeAvt{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    bottom: 0;
+    right: 0;
+}
+.info_avt .content{
+    font-size: 18px;
+    font-weight: bold;
+}
+.info_detail{
+    margin-top: 30px;
+    border-top: 2px solid;
+}
+.info_detail .avt,.logout{
+    margin-top: 10px;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    cursor: pointer;
+}
+.info_detail .avt:hover,.logout:hover{
+    color: #45a049;
+}
+.info_detail .avt div, .logout div{
+    padding: 10px;
+}
+.Update_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+.Update_list .title.large{
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+form.info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+fieldset {
+    border: none;
+}
+.Update_list form .content{
+    font-weight: bold;
+    padding: 0;
+}
+.Update_list input[type="text"],
+.Update_list input[type="email"],
+.Update_list input[type="tel"],
+.Update_list input[type="date"],
+.identify_item select  {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    /* margin-bottom: 16px; */
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #fff;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.Info_Container input[type="radio"] {
+    display: none;
+}
+.name_item{
+    padding: 10px 0;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+}
+.contact{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.address{
+    margin-top: 10px;
+}
+
+.button{
+    display: flex;
+    align-self: center;
+}
+input[type="submit"]{
+    margin: 10px;
+    width: 100px;
+    height: 40px;
+    border-radius:10px;
+    outline: none;
+    border: none;
+    background: #ccee66;
+    color: #fff;
+    font-size: large;
+    font-weight: 500;
+    box-shadow: 0 0 15px 0px #9cf661;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    color: #ccee66;
+    background: #fff;
+}

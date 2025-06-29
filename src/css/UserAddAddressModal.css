@@ -1,0 +1,104 @@
+.user-add-address-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.user-add-address-popup-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-add-address-popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user-add-address-popup-group {
+  margin-bottom: 16px;
+}
+
+.user-add-address-popup-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.user-add-address-popup-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: border 0.2s;
+}
+
+.user-add-address-popup-input:focus {
+  border-color: #00aaff;
+  outline: none;
+  background-color: #fff;
+}
+
+.user-add-address-popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.user-add-address-popup-button {
+  padding: 10px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.user-add-address-popup-button:hover {
+  filter: brightness(0.95);
+}
+
+.user-add-address-popup-button.cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.user-add-address-popup-button.submit {
+  background: linear-gradient(135deg, #00aaff 60%, #007acc);
+  color: white;
+}
+
+.user-add-address-popup-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

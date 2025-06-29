@@ -1,0 +1,22 @@
+.user-order-status-tag {
+  padding: 0.3rem 0.6rem;
+  width: 9.5rem;
+  color: white;
+  border-radius: 0.3rem;
+  font-size: smaller;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 0.3rem;
+}
+
+.user-order-status-tag svg{
+  font-size: 1.3rem;
+}
+
+
+.user-order-status-tag p{
+  display: flex;
+  margin-top: 0.1rem;
+  align-items: center;
+}

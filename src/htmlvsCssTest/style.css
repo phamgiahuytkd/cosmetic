@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Poppins:ital,wght@0,500;1,400&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+nav{    
+    color: #fff;
+    z-index: 99;
+    position: relative ;
+}
+nav a, header a{
+    color: #fff;
+    text-decoration: none;
+}
+nav .container{
+    max-width: 1450px;
+    padding: 1em 2em;
+    margin: 0 auto;
+}
+nav .container > div{
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    align-items: center;
+}
+nav .menu,
+nav form,
+.footer,
+.footer .watch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav ul{
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+}
+nav ul li{
+    display: inline-block;
+    margin: 0 0.5em;
+}
+
+nav ul a{
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+nav form{
+    margin-right: 2em;
+}
+nav form input{
+    background: transparent;
+    color: #fff;
+    width: 12em;
+    padding: 0.5em 1em;
+    outline: none;
+    border: none;
+}
+nav form input::placeholder{
+    color: #fff;
+}
+.logo{
+    width: 4em;
+    display: inline-block;    
+}
+
+.nav_btn{
+    background: rgba(255, 255, 255, 0.3);
+    color:#fff;
+    width: 2.8em;
+    height: 2.8em;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1em;
+}
+
+.nav_btn:hover{
+    background: rgba(255, 255, 255, 0.6s);
+}
+
+nav .container .menu-btn{
+    display: none;
+}
+
+header{
+    height: 100vh;
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
+header::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -40em;
+    background: linear-gradient(45deg,#ccee66,#6e9623);
+    width: 100%;
+    height: 120%;
+    transform: rotate(70deg);
+    z-index: 0;
+}
+header::after{
+    content: "Ro645a";
+    position: absolute;
+    top: 50%;
+    left: 50%;    
+    color: rgba(0, 0, 0, 0.2);
+    transform: translate(-50%,-50%);
+    font-size: 17em;
+    font-weight: 700;
+    z-index: 0;
+}
+.body{
+    display: grid;
+    justify-content: space-around;
+    align-content: center;
+    grid-template-columns: 1.5fr 3fr;
+    grid-gap: 2em;
+    height: 75%;
+    position: relative;
+    z-index: 1;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 3em;         
+}
+
+.body h1{
+    font-size: 3.5em;
+    margin: 0.5em 0;  
+}
+
+.body h4{
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+.body p{
+    letter-spacing: 2px;
+    line-height: 25px;  
+    font-size: 0.9em;
+    margin: 2em 0 3em 0;
+    max-width: 45em;
+}
+.btn{
+    padding: 0.7em 1.5em;
+    background: #a3be52;
+    border-radius: 3em;
+    letter-spacing: 1px;
+    font-size: 1em;
+    transition: 0.3s;
+}
+.btn:hover{
+    background: #6e9623;
+}
+.shoe{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.body .fas{
+    color: #fcc204;
+}   
+.body img{
+    width: 45em;
+    transform: rotate(-25deg);
+    filter: drop-shadow(
+        30px 45px 40px #161616
+    );  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CART */
+.Cart_Container{
+    position: relative;
+    width:100%;
+    background: #111111;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.Cart_Container::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#ccee66,#6e9623);
+    clip-path: polygon(70% 0, 100% 0%, 100% 100%, 40% 100%);
+}
+.Cart_Container::after {
+    content:'PGH';
+    position: absolute;
+    color:rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    top: 150px;
+    left: 500px;
+    font-size:300px;
+    z-index: 0;
+}
+.Content{
+    position: relative;
+    margin: 100px 0;
+    max-width: 1450px;
+    width: 1450px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+.Cart_head {
+    height: 120px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 30px;
+    background:rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.Cart_head::before{
+    bottom: 0;
+    right: 0;
+    content:'';
+    width: 1400px;
+    height: 3px;
+    background:#fff;
+    position: absolute;
+    margin: 0 30px;
+    border-radius: 10px;
+    z-index: 10;
+}
+.Quantity_goods {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Quantity_goods span{
+    font-size: 16px;
+    margin-left: 10px;
+}
+.Cart_body{
+height:340px ;
+overflow-y: scroll;
+}
+.Cart_body::-webkit-scrollbar{
+width: 10px;    
+}
+.Cart_body::-webkit-scrollbar-track{
+background: rgba(0, 0, 0, 0.2);
+}
+.Cart_body::-webkit-scrollbar-thumb{
+    background: #bdf31d;
+    border-radius: 10px;
+    }
+.Body_Content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 30px;
+}
+.Body_Content .item{
+    display: grid;
+    grid-template-columns: 4fr 1.5fr;
+    width: 100%;
+    height: 120px;
+    background: rgba(255, 0255, 255, 0.3);
+    align-items: center;
+    border-radius: 10px;
+    align-items: center;
+    filter: blur();
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+.item .item_left{
+    display: flex;
+    align-items: center;
+}
+.item_left .img_content{
+    padding: 0 20px;
+}
+.item_left .item_content{
+    padding: 0 20px;
+    line-height: 30px;
+}
+.item_content .title{
+    font-size: 18px;
+    display: flex;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.item_content .color{
+    width: 200px;
+    height: 3px;
+    display: flex;
+    justify-content: center;
+    background: #F95454;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: italic;
+    color: #fff;
+    align-items: center;
+    border-radius: 10px;
+    /* margin-left: 10px; */
+}
+.item_content .btn_delete{
+    margin-top: 10px;
+    cursor: pointer;
+    width: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.item_content .btn_delete:hover{
+    color: black;
+}
+.item .item_right{
+    display: flex;
+    justify-content: space-between;
+}
+.item_right .Quantity{
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Quantity .minus,.Quantity .add{
+    font-size: 20px;
+    padding: 5px 10px;
+    font-weight: bold;
+    background: #000;
+    border-radius: 10px;
+}
+.Quantity .minus:hover,.Quantity .add:hover{
+    background: rgba(0, 0, 0, 0.2);
+}
+.item_right .Cost{
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item_right .Btn{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.Btn .btn_detail,.Btn .btn_Cancel{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1s;
+}
+.Btn .btn_detail{
+    background: #0ee95b;
+}
+.Btn .btn_Cancel{
+    background: #F95454;
+}
+
+.Btn .btn_detail:hover{
+    color: #0ee95b;
+    background: #fff;
+}
+.Btn .btn_Cancel:hover{
+    color: #F95454;
+    background: #fff;
+}
+.Cart_footer{
+    width: 100%;
+    background: rgba(0, 0, 0, 1);
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px ;
+    height: 100px;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Cart_footer .Total{
+    padding-left: 20px;
+    font-weight: 500;
+}
+.Cart_footer .btn_Pay{
+    margin-right: 30px;
+    padding: 10px 20px;
+    background: #a3be52;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px 15px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+.Cart_footer .btn_Pay:hover{
+    background: #fff;
+    color: #bdf31d;
+}
+

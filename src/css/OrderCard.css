@@ -1,0 +1,137 @@
+.user-order-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-order-card-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+
+.user-order-card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .user-order-card-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.user-order-card-header>div:first-child {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: medium;
+  font-weight: 400;
+  color: rgb(0, 157, 224);
+}
+
+.user-order-card-header>div:first-child strong {
+  font-weight: 600;
+  color: rgb(0, 204, 255);
+}
+
+.user-order-card-header>div:first-child svg {
+  font-size: xx-large;
+  color: rgb(0, 204, 255);
+}
+
+.user-order-card-header-code {
+  text-transform: uppercase;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+  font-size: smaller;
+}
+
+.user-order-card-body {
+  width: 100%;
+}
+
+.user-order-card-body-detail {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  padding: 1rem;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+}
+
+.user-order-card-body-detail div {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: medium;
+  font-weight: 300;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.user-order-card-body-detail div strong {
+  font-weight: 600;
+  min-width: 4rem;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 0.5rem;
+}
+
+.user-order-card-body-detail div svg {
+  font-size: 18px;
+  min-width: 18px;
+  /* Kích thước đồng nhất cho tất cả icon */
+  margin-bottom: 0.1rem;
+}
+
+.user-order-card-body-detail>div>strong>span {
+  font-size: smaller;
+}
+
+@media (max-width: 558px) {
+  .user-order-card-body-detail div {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .user-order-card-body-detail div strong {
+    justify-content: flex-start;
+    text-decoration: underline;
+    min-width: auto;
+  }
+
+  .user-order-card-body-detail div svg {
+    display: none;
+    /* Kích thước nhỏ hơn một chút trên màn hình nhỏ */
+  }
+}
+
+.user-order-card-body-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: larger;
+}
+
+.user-order-card-body-total div {
+  display: flex;
+  justify-content: space-between;
+  width: 13rem;
+}
+
+.user-order-card-body-total strong {
+  font-weight: 600;
+}

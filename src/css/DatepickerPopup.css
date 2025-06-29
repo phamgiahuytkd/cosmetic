@@ -1,0 +1,147 @@
+.datepicker-popup {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 6px;
+  top: 61%;
+  left: 0;
+}
+
+
+
+.rdp-root{
+  padding: 0.5rem;
+}
+
+
+.rdp-dropdowns{
+  width: 13rem;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 1rem;
+}
+
+
+.rdp-dropdown{
+  padding: 0.5rem;
+}
+
+
+.rdp-month_caption{
+  padding: 0.5rem;
+}
+
+.rdp-caption_label{
+  font-size: medium;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+
+.rdp-weekday{
+  font-size: medium;
+}
+
+.rdp-day{
+  width: 2.3rem;
+  height: 2rem;
+ 
+  
+}
+
+.rdp-day_button{
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: medium;
+  margin: 0.2rem 0.5rem; 
+}
+
+
+.rdp-selected .rdp-day_button {
+  border: none;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0.2rem;
+}
+
+.rdp-day_button:hover{
+  background-color: #81c0ff;
+  color: white;
+  border-radius: 0.2rem;
+}
+
+
+
+.rdp-dropdown_root option:hover{
+  background-color: #81c0ff !important;
+}
+
+
+
+
+
+
+/* ////////////////////////////// */
+
+
+/* Hide the default black background of the dropdown */
+/* Loại bỏ viền và bóng khi focus vào dropdown */
+/* Xóa viền và bóng cho label */
+.rdp-caption_label {
+  /* border: none !important; */
+  /* box-shadow: none !important; */
+  outline: none !important;
+  background-color: transparent !important;
+  padding: 0.5rem;
+  font-size: medium;
+  font-weight: 600;
+  transition: box-shadow 0.3s ease;
+}
+
+
+
+
+/* //////////////// */
+/* Đảm bảo rdp-caption_label có thể hiển thị và định dạng cơ bản */
+/* Thêm box-shadow khi rdp-dropdown được focus */
+.rdp-dropdown:focus+.rdp-caption_label,
+.rdp-dropdown:active+.rdp-caption_label {
+  box-shadow:inset 0 0 6px #81c0ff;
+  border-radius: 0.2rem;
+  /* Bo góc nếu muốn */
+  /* Hiệu ứng mượt mà */
+}
+
+/* Định dạng cho rdp-dropdown */
+.rdp-button_previous,
+.rdp-button_next{
+  border-radius: 0.2rem;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.rdp-chevron{
+ fill: #2893ff;
+}
+
+
+
+
+.rdp-button_previous:hover,
+.rdp-button_next:hover{
+  background-color: #81c0ff;
+  color: white
+}
+
+.rdp-button_next:hover svg{
+ fill: white;
+}
+
+.rdp-button_previous:hover svg {
+  fill: white;}

@@ -1,0 +1,320 @@
+.user-menu-mobile {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  min-height: 6.5rem;
+  /* Chiều cao tối thiểu cho khung cha */
+}
+
+.user-menu-mobile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 2rem;
+}
+
+.user-menu-mobile-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-menu-mobile-hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.user-menu-mobile-hamburger svg {
+  font-size: 1.5rem;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.user-menu-mobile-hamburger:hover svg {
+  color: #0056b3;
+  transform: scale(1.2);
+}
+
+.user-menu-mobile-left a {
+  overflow: hidden;
+  height: 6rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 558px) {
+  .user-menu-mobile-left a {
+    display: none;
+  }
+}
+
+.user-menu-mobile-logo {
+  position: absolute;
+  top: 0;
+  left: 5rem;
+  z-index: 10;
+  height: 8rem;
+}
+
+.user-menu-mobile-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 6.5rem;
+}
+
+.user-menu-mobile-search-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.user-menu-mobile-search {
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 0.7rem;
+  width: 100%;
+  background-color: #dfdfdf42;
+  color: black;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.186);
+  transition: box-shadow 0.3s ease;
+}
+
+.user-menu-mobile-search:hover {
+  box-shadow: 0 0 6px #0057b37e;
+}
+
+.user-menu-mobile-search-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.user-menu-mobile-search-btn i {
+  color: #000000;
+  font-size: 1rem;
+}
+
+.user-menu-mobile-search-btn:hover i {
+  color: #0056b3;
+  box-shadow: 0 0 10px #0057b37e;
+  padding: 0.5rem;
+  border-radius: 100%;
+  transform: scale(1.5) translateX(0.3rem);
+}
+
+.user-menu-mobile-tools {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.user-menu-mobile-tools li {
+  position: relative;
+}
+
+.user-menu-mobile-tools>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-menu-mobile-tool-icon {
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.user-menu-mobile-cart-badge {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.5rem;
+  color: #ff0000;
+  font-size: smaller;
+  font-weight: bold;
+  padding: 0.2rem 0.3rem;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.user-menu-mobile-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.user-menu-mobile-account-submenu {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  width: 20rem;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 100;
+  border-radius: 0.2rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.user-menu-mobile-account-submenu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.user-menu-mobile-account-tool h4 {
+  font-weight: bold;
+  border-bottom: 0.1rem solid black;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-menu-mobile-account-tool li {
+  margin-bottom: 1rem;
+  list-style-type: none;
+}
+
+.user-menu-mobile-account-tool li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  font-size: medium;
+  font-weight: 400;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.user-menu-mobile-account-tool li a:hover{
+  box-shadow:inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.user-menu-mobile-account-tool li a svg {
+  font-size: x-large;
+  color: #000;
+}
+
+.user-menu-mobile-account-tool li:last-child {
+  margin-bottom: 0;
+  
+}
+
+.user-menu-mobile-account-tool li:last-child a {
+  border: 0.1rem solid #f0a0bb;
+  border-radius: 0.5rem;
+  background-color: #f0a0bb50;
+  color: #ff527b;
+  font-weight: 600;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+}
+
+.user-menu-mobile-account-tool li:last-child:hover a{
+  color: #ffffff;
+  background-color: #ffbfd4;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.user-menu-mobile-list {
+  background-color: #ffffff;
+  list-style: none;
+  padding: 0;
+  /* Không padding khi ẩn */
+  margin: 0;
+  /* Không margin để tránh chiếm không gian */
+  box-shadow: none;
+  /* Không box-shadow khi ẩn */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-menu-mobile-list.active {
+  max-height: 500px;
+  /* Giá trị đủ lớn để chứa nội dung */
+  padding: 1rem 2rem;
+  /* Khôi phục padding khi mở */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  /* Khôi phục box-shadow khi mở */
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.user-menu-mobile-list li {
+  padding: 0.5rem 0;
+}
+
+.user-menu-mobile-list li a:hover,
+.user-menu-mobile-list li span:hover {
+  color: #0056b3;
+}
+
+.user-menu-mobile-list li a,
+.user-menu-mobile-list li span {
+  text-decoration: none;
+  color: #000;
+  font-size: medium;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.user-menu-mobile-list li.open span {
+  color: #0056b3;
+}
+
+.user-menu-mobile-list li svg {
+  font-size: larger;
+  transition: transform 0.3s ease;
+}
+
+.user-menu-mobile-list li.open svg {
+  transform: rotate(180deg);
+}
+
+.user-menu-mobile-submenu {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.user-menu-mobile-submenu li {
+  padding: 0.25rem 0;
+}
+
+.user-menu-mobile-submenu li a {
+  color: #fa5f9d;
+  text-decoration: none;
+}
+
+.user-menu-mobile-submenu li:hover a {
+  color: #a80546;
+}

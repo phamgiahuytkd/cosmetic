@@ -1,0 +1,156 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.Order_container{
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+    background: #232323;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Order_card{
+    width: 1450px;
+    height: 490px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 #666;
+}
+.Order_card .Order_content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 10px;
+}
+.Order_title{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background: #ccee66;
+    padding: 20px;
+    color: #232323;
+    border-bottom: 2px solid #fff;
+}
+.Order_detail{
+    display: flex;
+    flex-direction: column;
+    line-height: 25px;
+    padding: 0 25px ;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+}
+.Order_detail div{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #888;
+    align-items: center;
+}
+.Order_Products{
+    display: flex;
+    flex-direction: column;
+    line-height: 25px;
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    border: 1px solid #fff;
+    border-radius: 20px;
+}
+.Order_Products thead tr,.Order_Products tbody tr{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.Order_Products thead{
+    color: #666;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: #ccee66;
+}
+.Order_Products tbody{
+    width: 100%;
+    overflow-y: scroll;
+    height: 195px;
+}
+.Order_Products tbody::-webkit-scrollbar{
+    width: 2px;    
+    }
+.Order_Products tbody::-webkit-scrollbar-track{
+background: rgba(0, 0, 0, 0.2);
+border-bottom-right-radius: 60px;
+}
+.Order_Products tbody::-webkit-scrollbar-thumb{
+    background: #bdf31d;
+    border-radius: 10px;
+    }
+.Order_Products td{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #666;
+}
+.Order_Products th{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-right: 1px solid #666;
+}
+.Order_Products th:last-child{
+    border: none;
+}
+
+.Order_Total{
+    display: flex;
+    height: 120px;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    border-radius:20px;
+    padding: 20px;
+}
+.Total_right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.Total_right .btn_Accept,.Total_right .btn_Cancel{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.Total_right .btn_Accept {
+    background: #81fe04;
+}
+.Total_right .btn_Accept a,
+.Total_right .btn_Cancel a{
+    color: #fff;
+    text-decoration: none;
+}
+.Total_right .btn_Accept:hover{
+    background: #fff;
+}
+.Total_right .btn_Accept:hover a{
+    color: #81fe04;
+}
+.Total_right .btn_Cancel{
+    background: #b71c1c;
+}
+.Total_right .btn_Cancel:hover{
+    background: #fff;
+}
+.Total_right .btn_Cancel:hover a{
+    color:#b71c1c;
+}

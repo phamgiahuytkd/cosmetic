@@ -1,0 +1,92 @@
+/* Floating Toolbar */
+.floating-toolbar {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  
+  /* Nút Toggle */
+  .toggle-button {
+    background-color: #535eac;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: #ffffff;
+    
+  }
+  .toggle-button:hover {
+    background-color: #53a8acc6;
+    transform: scale(1.05);
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow:inset 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Toolbar Menu */
+  .toolbar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    pointer-events: none;
+  }
+  
+  .toolbar-menu.open {
+    animation: slideUp 0.4s ease forwards;
+    pointer-events: auto;
+  }
+  
+  .toolbar-menu.closing {
+    animation: slideDown 0.4s ease forwards;
+  }
+  
+  /* Nút trong menu */
+  .toolbar-menu button {
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #f78aff;
+  }
+  .toolbar-menu button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+  }
+  
+  /* Hiệu ứng */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  

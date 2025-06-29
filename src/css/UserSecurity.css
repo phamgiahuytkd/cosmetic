@@ -1,0 +1,107 @@
+.user-security-container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+.user-security-title {
+  font-size: x-large;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: black;
+}
+
+
+.user-security-form-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+}
+
+
+.user-security-form {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 30rem;
+}
+
+.user-security-form-img{
+  flex: 1;
+  max-width: 25rem;
+}
+
+.user-security-form-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.user-security-button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  color: white;
+  background: linear-gradient(135deg, pink, #fa5f9d);
+  font-size: medium;
+  font-weight: 500;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.user-security-button:hover {
+  background: white;
+  color: #ff6ca7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 6px rgba(255, 192, 203, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.user-security-forgot {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.user-security-forgot-link {
+  color: rgb(48, 196, 255);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.user-security-forgot-link:hover {
+  text-decoration: underline;
+}
+
+.user-security-not-available{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 30rem;
+  gap: 1rem;
+}
+
+.user-security-not-available h3{
+  font-size: xx-large;
+ 
+  color: rgb(48, 196, 255);
+
+}
+
+.user-security-not-available p {
+  font-size: xx-large;
+  text-align: center;
+  color: #fa5f9d;
+}
+ 
+
+
+@media (max-width: 600px) {
+  .user-security-form-img {
+    display: none;
+  }
+}

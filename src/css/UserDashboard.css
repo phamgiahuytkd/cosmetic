@@ -1,0 +1,144 @@
+.user-dash-board-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: calc(100vh - 6.5rem);
+  margin-bottom: -3rem;
+  background-color: #fefefe;
+  font-family: "Segoe UI", sans-serif;
+  gap: 6px;
+}
+
+
+
+
+
+.user-dash-board-sidebar {
+  width: 100%;
+  background-color: #ffffff;
+  /* border-right: 1px solid #e0e0e0; */
+  padding: 2rem;
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+}
+
+@media (max-width: 958px) {
+  .user-dash-board-container {
+    grid-template-columns: 1fr;
+  }
+
+  .user-dash-board-sidebar {
+    display: none;
+  }
+}
+
+.user-dash-board-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+
+}
+
+.user-dash-board-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eaeaea;
+}
+
+.user-dash-board-username {
+  font-size: larger;
+  font-weight: 600;
+  color: #333;
+}
+
+
+.user-dash-board-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-dash-board-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+  font-size: large;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 3px rgba(0 , 0, 0, 0.2);
+}
+
+.user-dash-board-link:hover {
+  color: hsl(217, 100%, 50%);
+  box-shadow: 0 0 8px hsla(217, 100%, 65%, 0.5);
+}
+
+
+.user-dash-board-link.active {
+  background: linear-gradient(135deg ,hsl(217, 100%, 65%), rgb(48, 196, 255));
+  color: white;
+  font-weight: 600;
+}
+
+
+.user-dash-board-logout {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  display: block;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgb(255, 111, 111);
+  color: rgb(255, 111, 111);
+  font-weight: 600;
+  font-size: large;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  text-align: center;
+  margin-top: auto;
+  transition: color 0.5s ease;
+}
+
+/* ::before sẽ là lớp nền trượt */
+.user-dash-board-logout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  /* bắt đầu bên trái */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgb(255, 74, 74), rgb(255, 74, 74));
+  z-index: -1;
+  transition: left 0.5s ease;
+}
+
+/* Khi hover thì nền trượt vào */
+.user-dash-board-logout:hover::before {
+  left: 0;
+}
+
+/* Text chuyển màu */
+.user-dash-board-logout:hover {
+  color: white;
+}
+
+
+.user-dash-board-content {
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 6.5rem);
+}

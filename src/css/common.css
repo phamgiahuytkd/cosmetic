@@ -1,0 +1,317 @@
+
+/* ///////product card///// */
+.user-product-card{
+  background-color: white;
+  position: relative;
+  height: 28rem;
+  min-width: 12rem;
+  max-width: 15.35rem !important;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
+  align-items: start;
+  gap: 1rem;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-product-card:hover{
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
+
+}
+
+.user-product-card-discount{
+  position: absolute;
+  padding: 0.3rem 0.3rem;
+  background: linear-gradient(135deg, #ff9191, rgb(255, 0, 0));
+  color: white;
+  top: 0.7rem;
+  left: 0.7rem;
+  border-radius: 0.3rem 0.5rem 2rem 0.3rem;
+
+}
+
+.user-product-card-love{
+  position: absolute;
+  padding: 0.2rem 0.3rem;
+  background-color: #f7adba;
+  color: white;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-product-card-love:hover{
+  background-color: #0095b3a6;
+}
+
+
+.user-product-card-image{
+  height: 15rem;
+  width: 100%;
+}
+
+
+.user-product-card-image > img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+  /* Đảm bảo ảnh không méo, giữ tỷ lệ và lấp đầy khung */
+}
+
+.user-product-card-view{
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+}
+
+.user-product-card-info{
+  display: grid;
+  grid-template-rows: 1.5fr 1.5fr 2fr 3fr;
+}
+
+.user-product-card-info > h4{
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: medium;
+    display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* 👈 Giới hạn 2 dòng */
+      -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-product-card-info>h5 {
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: smaller;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* 👈 Giới hạn 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color:#9a9a9a;
+}
+
+.user-product-card-price{
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  color: red;
+  align-items: center;
+}
+
+.user-product-card-price-number{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.user-product-card-price-discount{
+  font-weight: bold;
+  font-size: medium;
+}
+
+.user-product-card-price-ogirin{
+  color: #9a9a9a;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.user-product-card-new{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-product-card-new > span{
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: small;
+  padding: 10%;
+  margin-right: 15%;
+  border-radius: 0.3rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.user-product-card-buy{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.user-product-card-buy > button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+
+.user-product-card-buy-cart {
+  border-radius: 100%;
+  font-size: x-large;
+  padding: 0.45rem 0.6rem;
+  background: linear-gradient(135deg, rgb(48, 196, 255), #3381ff);
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.user-product-card-buy-cart svg {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.user-product-card-buy-cart:hover {
+  background: white;
+  color: rgb(48, 196, 255);
+  box-shadow: 0 0 0 6px rgba(48, 196, 255, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.user-product-card-buy-cart:hover svg {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+
+
+.user-product-card-buy-now{
+  font-size: larger;
+  padding: 0.6rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, pink, #fa5f9d);
+  border-radius: 0.2rem;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.user-product-card-buy-now svg {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+.user-product-card-buy-now:hover {
+  background: white;
+  color: #ff6ca7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 6px rgba(255, 192, 203, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+
+.user-product-card-is-favorite{
+  background-color: rgb(254, 67, 67) !important;
+}
+
+
+
+.user-product-card-rating{
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-product-card-rating-score{
+  font-size: small;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+  border: 1px solid rgb(125, 125, 125);
+  border-radius: 0.1rem;
+}
+
+
+
+.user-product-card-rating-score span{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #777777;
+  
+  
+}
+
+.user-product-card-rating-score div{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+}
+
+.user-product-card-rating-score span:first-child{
+  background-color: #777777;
+  color: white;
+}
+
+
+
+
+
+.user-product-card-gift {
+  position: absolute;
+  background-color: #d3d3d3b0;
+  color: #ff3d3d;
+  bottom: 43%;
+  left: 1rem;
+  height: 3rem;
+  width: 11rem;
+  border-radius: 0.2rem;
+  display: grid;
+  grid-template-columns: 3fr 8fr;
+
+}
+
+.user-product-card-gift div{
+  height: 100%;
+  width: 100%;
+  padding: 0.2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.user-product-card-gift img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0.2rem;
+}
+
+
+.user-product-card-gift-text {
+  font-size: small;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 1.2rem;
+  max-height: 2.4rem;
+  /* 1.2rem * 3 dòng */
+}
