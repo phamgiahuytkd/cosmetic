@@ -95,7 +95,7 @@ const SearchForm = ({ onSubmit, isVisible, onClose }) => {
             <option value="">Chọn thương hiệu</option>
             {brands.map((brand) => (
               <option key={brand.id} value={brand.id}>
-                {brand.id}
+                {brand.name}
               </option>
             ))}
           </select>
@@ -112,7 +112,7 @@ const SearchForm = ({ onSubmit, isVisible, onClose }) => {
             <option value="">Chọn danh mục</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
-                {category.id}
+                {category.name}
               </option>
             ))}
           </select>

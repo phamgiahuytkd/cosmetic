@@ -63,7 +63,7 @@ const UserProductDetail = () => {
         "//product.hstatic.net/1000303351/product/00._extra_light_ec29f17922da4681a6cd06a595a719ca_large.png",
       id: "1360607091",
     },
-   
+
   ];
 
   const handleAddToCart = () => {
@@ -128,9 +128,8 @@ const UserProductDetail = () => {
               {images.map((image, index) => (
                 <SwiperSlide
                   key={image.id}
-                  className={`thumbImageItem slick-slide ${
-                    activeIndex === index ? "slick-current slick-active" : ""
-                  }`}
+                  className={`thumbImageItem slick-slide ${activeIndex === index ? "slick-current slick-active" : ""
+                    }`}
                   style={{ width: "134px" }}>
                   <a
                     href="javascript:void(0);"
@@ -183,9 +182,8 @@ const UserProductDetail = () => {
               {images.map((image, index) => (
                 <SwiperSlide
                   key={image.id}
-                  className={`slick-slide ${
-                    activeIndex === index ? "slick-current slick-active" : ""
-                  }`}
+                  className={`slick-slide ${activeIndex === index ? "slick-current slick-active" : ""
+                    }`}
                   style={{ width: "496px" }}>
                   <a
                     href={image.src}

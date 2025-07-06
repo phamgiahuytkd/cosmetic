@@ -121,26 +121,26 @@ const ProductDetail = () => {
             startotal[star] = count;
           }
         });
-        
+
         setRatingInfo(startotal);
       })
       .catch((error) => {
         console.error(error.response?.data?.message || "Lỗi không xác định");
       });
-    
-    
-      api
-        .get(`/rating/${id}/ratings`)
-        .then((response) => {
 
-          setRatings(response.data.result);
-        })
-        .catch((error) => {
-          console.error(error.response?.data?.message || "Lỗi không xác định");
-        });
-    
-    
-    
+
+    api
+      .get(`/rating/${id}/ratings`)
+      .then((response) => {
+
+        setRatings(response.data.result);
+      })
+      .catch((error) => {
+        console.error(error.response?.data?.message || "Lỗi không xác định");
+      });
+
+
+
   }, [id]);
 
 
@@ -264,7 +264,7 @@ const ProductDetail = () => {
     }
   };
 
- 
+
 
 
 
@@ -401,7 +401,7 @@ const ProductDetail = () => {
                   <h4 className="user-product-detail-product-price-origin">
                     {formatPrice(
                       (matchedVariant?.price * 100) /
-                        (100 - matchedVariant?.percent)
+                      (100 - matchedVariant?.percent)
                     )}
                     <strong>-{matchedVariant.percent}%</strong>
                   </h4>
@@ -423,7 +423,7 @@ const ProductDetail = () => {
                 </li>
                 <li>
                   <span>
-                    <strong>Thương hiệu:</strong> {product?.brand_id}
+                    <strong>Thương hiệu:</strong> {product?.brand}
                   </span>
                   <img
                     src={
@@ -437,7 +437,7 @@ const ProductDetail = () => {
 
                 <li>
                   <span>
-                    <strong>Dòng sản phẩm:</strong> {product?.category_id}
+                    <strong>Dòng sản phẩm:</strong> {product?.category}
                   </span>
                   <img
                     src={
@@ -510,11 +510,10 @@ const ProductDetail = () => {
 
                 <div className="user-product-detail-love">
                   <button
-                    className={`user-product-detail-love-button ${
-                      favoriteIdSet.has(product.id)
-                        ? "user-product-card-is-favorite"
-                        : ""
-                    }`}
+                    className={`user-product-detail-love-button ${favoriteIdSet.has(product.id)
+                      ? "user-product-card-is-favorite"
+                      : ""
+                      }`}
                     onClick={(e) => {
                       if (isLoved) {
                         handleRemoveToLove(
@@ -578,9 +577,9 @@ const ProductDetail = () => {
           </div>
 
           <ProductDescription
-            description={matchedVariant?.description}
-            usage={matchedVariant?.instruction}
-            ingredients={matchedVariant?.ingredient}
+            description={product?.description}
+            usage={product?.instruction}
+            ingredients={product?.ingredient}
           />
 
           <div className="user-product-detail-features-section">

@@ -157,7 +157,7 @@ const MenuDesktop = ({ setOpenModal }) => {
               <div>
                 {categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={`/product?category=${category.id}`}>
+                    <Link to={`/product?category=${category.name}`}>
                       {category.id}
                     </Link>
                   </li>
@@ -174,7 +174,7 @@ const MenuDesktop = ({ setOpenModal }) => {
               <div>
                 {brands.map((brand) => (
                   <li key={brand.id}>
-                    <Link to={`/product?brand=${brand.id}`}>{brand.id}</Link>
+                    <Link to={`/product?brand=${brand.id}`}>{brand.name}</Link>
                   </li>
                 ))}
               </div>

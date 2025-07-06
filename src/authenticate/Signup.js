@@ -68,7 +68,8 @@ function Signup() {
     else if (!validateStrongPassword(password))
       newErrors.password =
         "Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ thường, chữ in hoa và số.";
-    if (!date_of_birth) newErrors.date_of_birth = "Vui lòng nhập ngày sinh.";
+    if (!date_of_birth) newErrors.date_of_birth_form = "Vui lòng nhập ngày sinh.";
+    else if (validateDateFormat(date_of_birth) !== "") newErrors.date_of_birth_form = validateDateFormat(date_of_birth);
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

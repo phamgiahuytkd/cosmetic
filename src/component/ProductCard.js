@@ -26,7 +26,7 @@ const ProductCard = ({ product, isLoved = false }) => {
   const navigate = useNavigate();
   const { setOpenAddAndBuyNowModal, setAddAndBuyNowProduct } =
     useAddAndBuyNowModal();
-  
+
 
   return (
     <div
@@ -51,9 +51,8 @@ const ProductCard = ({ product, isLoved = false }) => {
       )}
 
       <button
-        className={`user-product-card-love ${
-          favoriteIdSet.has(product.id) ? "user-product-card-is-favorite" : ""
-        }`}
+        className={`user-product-card-love ${favoriteIdSet.has(product.id) ? "user-product-card-is-favorite" : ""
+          }`}
         onClick={(e) => {
           if (isLoved) {
             handleRemoveToLove(e, product, fetchFavorites, navigate);
@@ -71,7 +70,7 @@ const ProductCard = ({ product, isLoved = false }) => {
       <div className="user-product-card-view">
         <div className="user-product-card-info">
           <h4>{product.name}</h4>
-          <h5>{product.brand_id}</h5>
+          <h5>{product.brand}</h5>
           <div className="user-product-card-rating">
             <ReactStars
               key={product.id}
