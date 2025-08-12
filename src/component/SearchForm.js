@@ -62,6 +62,7 @@ const SearchForm = ({ onSubmit, isVisible, onClose }) => {
     };
 
     if (onSubmit) {
+      console.log(preparedData);
       onSubmit(preparedData);
     }
   };

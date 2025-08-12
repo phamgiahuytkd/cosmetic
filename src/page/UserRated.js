@@ -27,7 +27,7 @@ const UserRated = () => {
       .catch((err) => {
         console.error(
           err.response?.data?.message ||
-            "Lỗi lấy thông tin sản phẩm cần đánh giá"
+          "Lỗi lấy thông tin sản phẩm cần đánh giá"
         );
       });
   }, []);
@@ -38,7 +38,7 @@ const UserRated = () => {
     setContent(ratingData.comment || "");
     setImages(
       ratingData.images
-        ? ratingData.images.split(",").map((url) => ({ url }))
+        ? ratingData.images?.split(",")?.map((url) => ({ url }))
         : []
     );
     setIsModalOpen(true);
@@ -61,7 +61,7 @@ const UserRated = () => {
       });
       return;
     }
-    setImages([...images, ...files.map((file) => ({ file }))]);
+    setImages([...images, ...files?.map((file) => ({ file }))]);
   };
 
   const removeImage = (index) => {
@@ -98,16 +98,16 @@ const UserRated = () => {
       .then(() => {
         Swal.fire({ icon: "success", title: "Cập nhật đánh giá thành công!" });
         setRatings((prev) =>
-          prev.map((r) =>
+          prev?.map((r) =>
             r.id === selectedRating.id
               ? {
-                  ...r,
-                  star: rating,
-                  comment: content,
-                  images: images
-                    .map((img) => img.url || URL.createObjectURL(img.file))
-                    .join(","),
-                }
+                ...r,
+                star: rating,
+                comment: content,
+                images: images
+                  ?.map((img) => img.url || URL.createObjectURL(img.file))
+                  .join(","),
+              }
               : r
           )
         );
@@ -131,7 +131,7 @@ const UserRated = () => {
         <p className="user-rated-empty">Bạn chưa đánh giá sản phẩm nào 😢</p>
       ) : (
         <div className="user-rated-list">
-          {ratings.map((r, index) => (
+          {ratings?.map((r, index) => (
             <div className="user-rated-item" key={index}>
               <div className="user-rated-display">
                 <img
@@ -143,7 +143,7 @@ const UserRated = () => {
                   <p className="user-rated-name">{r?.name}</p>
                   <p className="user-rated-variant">
                     {r?.attribute_values
-                      .map((attr) => `${attr.attribute_id}: ${attr.id}`)
+                      ?.map((attr) => `${attr.attribute_id}: ${attr.id}`)
                       .join(", ")}
                   </p>
                   <div className="user-rated-stars">
@@ -177,7 +177,7 @@ const UserRated = () => {
 
               {r.images && r.images.trim().length > 0 && (
                 <div className="user-product-detail-review-images">
-                  {r.images.split(",").map((image, index) => (
+                  {r.images.split(",")?.map((image, index) => (
                     <img
                       key={index}
                       src={getImageUrl(image.trim())}
@@ -253,7 +253,7 @@ const UpdateRatingModal = ({
             <p className="user-rated-product-name">{product?.name}</p>
             <p className="user-rated-product-variant">
               {product.attribute_values
-                .map((attr) => `${attr.attribute_id}: ${attr.id}`)
+                ?.map((attr) => `${attr.attribute_id}: ${attr.id}`)
                 .join(", ")}
             </p>
           </div>
@@ -297,7 +297,7 @@ const UpdateRatingModal = ({
         </div>
 
         <div className="user-rated-image-preview">
-          {images.map((img, idx) => (
+          {images?.map((img, idx) => (
             <div key={idx} className="user-rated-preview-wrapper">
               <img
                 src={

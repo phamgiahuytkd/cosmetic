@@ -93,7 +93,7 @@ const MenuDesktop = ({ setOpenModal }) => {
                     <h4>
                       <p>{user?.full_name}</p>{" "}
                       <img
-                        src={getImageUrl(user?.avatar)}
+                        src={user?.avatar ? getImageUrl(user?.avatar) : "/image/default-avatar-profile.jpg"}
                         alt={user?.full_name}
                       />
                     </h4>
@@ -157,8 +157,8 @@ const MenuDesktop = ({ setOpenModal }) => {
               <div>
                 {categories.map((category) => (
                   <li key={category.id}>
-                    <Link to={`/product?category=${category.name}`}>
-                      {category.id}
+                    <Link to={`/product?category=${category.id}`}>
+                      {category.name}
                     </Link>
                   </li>
                 ))}

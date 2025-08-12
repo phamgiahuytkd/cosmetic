@@ -27,7 +27,7 @@ const UserWaitRating = () => {
       .catch((err) => {
         console.error(
           err.response?.data?.message ||
-            "Lỗi lấy thông tin sản phẩm cần đánh giá"
+          "Lỗi lấy thông tin sản phẩm cần đánh giá"
         );
       });
   }, []);
@@ -75,11 +75,17 @@ const UserWaitRating = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append("product_variant_id", selectedProduct.id); // ✅ đúng tên backend
-    formData.append("order_id", selectedProduct.order_id); // ✅ đúng tên backend
-    formData.append("star", rating); // ✅ đúng tên backend
-    formData.append("comment", content); // ✅ đúng tên backend
+    formData.append("product_variant_id", selectedProduct.id);
+    formData.append("order_id", selectedProduct.order_id);
+    formData.append("star", rating);
+    formData.append("comment", content);
 
+    // ✅ Gửi ảnh
+    images.forEach((img) => {
+      formData.append("images", img);
+    });
+
+    // Log ra để chắc chắn ảnh có trong FormData
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
@@ -109,7 +115,8 @@ const UserWaitRating = () => {
       })
       .finally(() => setLoading(false));
   };
-  
+
+
 
   return (
     <div className="user-wait-rating-container">
@@ -121,7 +128,7 @@ const UserWaitRating = () => {
         </p>
       )}
       <div className="user-wait-rating-list">
-        {products.map((product) => (
+        {products?.map((product) => (
           <div
             className="user-wait-rating-item"
             key={product?.id + product?.order_id}>
@@ -134,7 +141,7 @@ const UserWaitRating = () => {
               <p className="user-wait-rating-name">{product?.name}</p>
               <p className="user-wait-rating-variant">
                 {product?.attribute_values
-                  .map((attr) => `${attr.attribute_id}: ${attr.id}`)
+                  ?.map((attr) => `${attr.attribute_id}: ${attr.id}`)
                   .join(", ")}
               </p>
               <button
@@ -207,8 +214,8 @@ const RatingModal = ({
           <div>
             <p className="user-wait-rating-product-name">{product?.name}</p>
             <p className="user-wait-rating-product-variant">
-              {product.attribute_values
-                .map((attr) => `${attr.attribute_id}: ${attr.id}`)
+              {product?.attribute_values
+                ?.map((attr) => `${attr.attribute_id}: ${attr.id}`)
                 .join(", ")}
             </p>
           </div>
@@ -251,7 +258,7 @@ const RatingModal = ({
         </div>
 
         <div className="user-wait-rating-image-preview">
-          {images.map((img, idx) => (
+          {images?.map((img, idx) => (
             <div key={idx} className="user-wait-rating-preview-wrapper">
               <img
                 src={URL.createObjectURL(img)}

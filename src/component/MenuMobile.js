@@ -121,7 +121,7 @@ const MenuMobile = ({ setOpenModal }) => {
                   onClick={toggleAccountMenu}
                   className="user-menu-mobile-account">
                   <img
-                    src={getImageUrl(user?.avatar)}
+                    src={user?.avatar ? getImageUrl(user?.avatar) : "/image/default-avatar-profile.jpg"}
                     alt={user?.full_name}
                     className="user-menu-mobile-avatar"
                   />

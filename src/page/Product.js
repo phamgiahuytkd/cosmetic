@@ -46,7 +46,7 @@ const Product = () => {
     const searchQuery = searchParams.get("search");
 
     if (searchQuery) {
-      
+
       api
         .post("/product/search", {
           name: searchQuery,
@@ -150,6 +150,17 @@ const Product = () => {
       });
   };
 
+  const getBrandNameById = (id) => {
+    const brand = brands.find(b => b.id === id);
+    return brand ? brand.name : "";
+  };
+
+  const getCategoryNameById = (id) => {
+    const category = categories.find(c => c.id === id);
+    return category ? category.name : "";
+  };
+
+
   return (
     <div className="user-product-container">
       {/* 🟢 Thêm SearchForm ở đầu trang */}
@@ -164,11 +175,11 @@ const Product = () => {
           src={
             categoryName
               ? getImageUrl(
-                  categories.find((c) => c.id === categoryName)?.image
-                ) || "/image/1 (2).png"
+                categories.find((c) => c.id === categoryName)?.image
+              ) || "/image/1 (2).png"
               : brandName
-              ? getImageUrl(brands.find((c) => c.id === brandName)?.image)
-              : "/image/1 (2).png"
+                ? getImageUrl(brands.find((c) => c.id === brandName)?.image)
+                : "/image/1 (2).png"
           }
           alt="Banner"
         />
@@ -176,13 +187,14 @@ const Product = () => {
 
       <h2 className="user-product-title">
         {searchTitle
-          ? "KẾT QUẢ TÌM KIẾM".toUpperCase()
+          ? "KẾT QUẢ TÌM KIẾM"
           : categoryName
-          ? categoryName.toUpperCase()
-          : brandName
-          ? brandName.toUpperCase()
-          : "TẤT CẢ SẢN PHẨM".toUpperCase()}
+            ? getCategoryNameById(categoryName).toUpperCase()
+            : brandName
+              ? getBrandNameById(brandName).toUpperCase()
+              : "TẤT CẢ SẢN PHẨM"}
       </h2>
+
 
       <div className="user-product-grid">
         {products.map((product) => (

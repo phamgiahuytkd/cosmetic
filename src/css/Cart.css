@@ -336,6 +336,12 @@
   background-color: #c4001a;
 }
 
+.user-cart-checkout-button:disabled {
+  opacity: 0.5;           /* Làm mờ */
+  cursor: not-allowed;    /* Hiện icon cấm */
+}
+
+
 .user-cart-policy {
   background-color: #e4f1f9;
   padding: 15px;

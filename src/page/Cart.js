@@ -331,9 +331,12 @@ const Cart = () => {
             </ul>
             <button
               className="user-cart-checkout-button"
-              onClick={handleCheckout}>
+              onClick={handleCheckout}
+              disabled={itemsInCart.length === 0}
+            >
               THANH TOÁN
             </button>
+
           </div>
 
           {/* Chính sách mua hàng */}

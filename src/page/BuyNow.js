@@ -20,8 +20,8 @@ import {
   paymentMethods,
 } from "../component/PaymentOptionCheckout";
 import AddressModalCheckout from "../component/AddressModalCheckout";
-
-
+import UserAddAddressModal from "../component/UserAddAddressModal";
+import Swal from "sweetalert2";
 
 const BuyNow = () => {
   const getDeviceType = () => {
@@ -49,9 +49,23 @@ const BuyNow = () => {
   const [itemBuyNow, setItemBuyNow] = useState({});
   const [addresses, setAddresses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isAddressInitialized, setIsAddressInitialized] = useState(false);
   const navigate = useNavigate();
   const [previousQuantity, setPreviousQuantity] = useState(1);
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await api.get("/user/info");
+      setInfoUser(response.data.result);
+    } catch (error) {
+      console.error(
+        "Error fetching user info:",
+        error.response?.data?.message || error.message
+      );
+      toast.error("Không thể tải thông tin người dùng!");
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -77,32 +91,19 @@ const BuyNow = () => {
     : 0;
 
   useEffect(() => {
-    api
-      .get("/user/info")
-      .then((response) => {
-        setInfoUser(response.data.result);
-      })
-      .catch((error) => {
-        console.error(
-          "Error fetching user info:",
-          error.response?.data?.message || error.message
-        );
-      });
+    fetchUserInfo();
   }, []);
 
   useEffect(() => {
     if (infoUser.default_shipping_address && !isAddressInitialized) {
-      setFormData((prev) => {
-        const updated = {
-          ...prev,
-          name: infoUser.default_shipping_address.name || "",
-          phone:
-            infoUser.default_shipping_address.phone || infoUser.phone || "",
-          address: infoUser.default_shipping_address.address || "",
-          fulladdress: infoUser.default_shipping_address.address_detail || "",
-        };
-        return updated;
-      });
+      setFormData((prev) => ({
+        ...prev,
+        name: infoUser.default_shipping_address.name || "",
+        phone:
+          infoUser.default_shipping_address.phone || infoUser.phone || "",
+        address: infoUser.default_shipping_address.address || "",
+        fulladdress: infoUser.default_shipping_address.address_detail || "",
+      }));
       setIsAddressInitialized(true);
     }
   }, [infoUser, isAddressInitialized]);
@@ -119,32 +120,25 @@ const BuyNow = () => {
       },
     ];
 
-    
-
-    setFormData((prev) => {
-      const updated = {
-        ...prev,
-        payment: paymentMethod,
-        amount: total,
-        carts,
-      };
-      
-      return updated;
-    });
+    setFormData((prev) => ({
+      ...prev,
+      payment: paymentMethod,
+      amount: total,
+      carts,
+    }));
   }, [
     itemBuyNow.product_variant,
     itemBuyNow.quantity,
-    itemBuyNow.selectedGift, // thêm dòng này để trigger lại khi gift thay đổi
+    itemBuyNow.selectedGift,
     paymentMethod,
     total,
   ]);
-  
 
   const handleInputChange = (fieldId, newValue) => {
-    setFormData((prev) => {
-      const updated = { ...prev, [fieldId]: newValue };
-      return updated;
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [fieldId]: newValue,
+    }));
     setError("");
   };
 
@@ -154,7 +148,7 @@ const BuyNow = () => {
       const fetchedAddresses = response.data.result;
       if (!fetchedAddresses || fetchedAddresses.length === 0) {
         toast.error("Bạn chưa có địa chỉ nào. Vui lòng thêm địa chỉ mới!");
-        navigate("/user/address/add");
+        setIsModalAddOpen(true);
         return;
       }
       setAddresses(fetchedAddresses);
@@ -173,16 +167,44 @@ const BuyNow = () => {
   };
 
   const handleSaveAddress = (selectedAddress) => {
-    setFormData((prev) => {
-      const updated = {
-        ...prev,
-        name: selectedAddress.name || "",
-        phone: selectedAddress.phone || "",
-        address: selectedAddress.address || "",
-        fulladdress: selectedAddress.address_detail || "",
-      };
-      return updated;
-    });
+    setFormData((prev) => ({
+      ...prev,
+      name: selectedAddress.name || "",
+      phone: selectedAddress.phone || "",
+      address: selectedAddress.address || "",
+      fulladdress: selectedAddress.address_detail || "",
+    }));
+    setIsModalOpen(false);
+  };
+
+  const handleSubmitAddress = async (newAddress) => {
+    try {
+      await api.post("/address", {
+        name: newAddress.name,
+        phone: newAddress.phone,
+        address: newAddress.address,
+        address_detail: newAddress.address_detail,
+        locate: newAddress.locate,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Thành công!",
+        text: "Bạn đã thêm địa chỉ thành công.",
+        confirmButtonText: "OK",
+        timer: 2500,
+        timerProgressBar: true,
+      });
+      await fetchUserInfo();
+      setIsAddressInitialized(false);
+      setIsModalAddOpen(false);
+    } catch (err) {
+      console.error(err.response?.data?.message || "Lỗi thêm địa chỉ");
+      Swal.fire({
+        icon: "error",
+        title: "Lỗi",
+        text: "Không thể thêm địa chỉ!",
+      });
+    }
   };
 
   const handlePlaceOrder = async (e) => {
@@ -231,13 +253,12 @@ const BuyNow = () => {
     }
   };
 
-
   const OrderSummary = ({ isMobile = false, total }) => {
     return (
       <div
-        className={`user-checkout-order-summary ${
-          isMobile ? "user-checkout-order-summary--mobile" : ""
-        }`}>
+        className={`user-checkout-order-summary ${isMobile ? "user-checkout-order-summary--mobile" : ""
+          }`}
+      >
         <div className="user-checkout-order-summary-row">
           <p>Tổng tiền hàng</p>
           <p>{total?.toLocaleString() || "0"}đ</p>
@@ -289,40 +310,57 @@ const BuyNow = () => {
         <form
           id="hara_checkout_form"
           className="user-checkout-checkout-form"
-          onSubmit={handlePlaceOrder}>
+          onSubmit={handlePlaceOrder}
+        >
           <div className="user-checkout-shadow-container">
             <h2 className="user-checkout-text-head">Thông tin giao hàng</h2>
             <div className="user-checkout-info-order">
-              <p>
-                <strong>
-                  <span>Họ tên</span> <span>:</span>
-                </strong>{" "}
-                {formData.name || "Chưa chọn địa chỉ"}
-              </p>
-              <p>
-                <strong>
-                  <span>SĐT</span> <span>:</span>
-                </strong>{" "}
-                {formData.phone || "-"}
-              </p>
-              <p>
-                <strong>
-                  <span>Địa chỉ</span> <span>:</span>
-                </strong>{" "}
-                {formData.address || "-"}
-              </p>
-              <p>
-                <strong>
-                  <span>Chi tiết</span> <span>:</span>
-                </strong>{" "}
-                {formData.fulladdress || "-"}
-              </p>
-
-              <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-                <Button variant="outlined" onClick={handleOpenModal}>
-                  Chọn địa chỉ khác
-                </Button>
-              </Box>
+              {formData.address ? (
+                <>
+                  <p>
+                    <strong>
+                      <span>Họ tên</span> <span>:</span>
+                    </strong>{" "}
+                    {formData.name}
+                  </p>
+                  <p>
+                    <strong>
+                      <span>SĐT</span> <span>:</span>
+                    </strong>{" "}
+                    {formData.phone}
+                  </p>
+                  <p>
+                    <strong>
+                      <span>Địa chỉ</span> <span>:</span>
+                    </strong>{" "}
+                    {formData.address}
+                  </p>
+                  <p>
+                    <strong>
+                      <span>Chi tiết</span> <span>:</span>
+                    </strong>{" "}
+                    {formData.fulladdress}
+                  </p>
+                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                    <Button variant="outlined" onClick={handleOpenModal}>
+                      Chọn địa chỉ khác
+                    </Button>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <div>Bạn chưa có địa chỉ, hãy thêm địa chỉ mặc định.</div>
+                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setIsModalAddOpen(true)}
+                    >
+                      Thêm địa chỉ mặc định
+                    </Button>
+                  </Box>
+                </>
+              )}
             </div>
           </div>
           <div className="user-checkout-shadow-container">
@@ -345,9 +383,8 @@ const BuyNow = () => {
                 id="note"
                 placeholder="Ghi chú đơn hàng"
                 value={formData.note}
-                onChange={(e) =>
-                  handleInputChange("note", e.target.value)
-                }></textarea>
+                onChange={(e) => handleInputChange("note", e.target.value)}
+              ></textarea>
             </div>
           </div>
           <div className="user-checkout-shadow-container user-checkout-order-summary--mobile">
@@ -471,11 +508,9 @@ const BuyNow = () => {
                       .map((attr) => `${attr.attribute_id}: ${attr.id}`)
                       .join(", ")}
                   </div>
-
                   <div className="user-cart-item-price">0₫</div>
                 </div>
               </div>
-
               <div className="user-cart-item-right gift">
                 <strong>
                   <FaGift size={18} />
@@ -493,7 +528,8 @@ const BuyNow = () => {
               className="user-checkout-place-order-button"
               type="submit"
               form="hara_checkout_form"
-              disabled={loading}>
+              disabled={loading}
+            >
               {loading ? "Đang xử lý..." : "Đặt hàng"}
             </button>
           </div>
@@ -507,6 +543,12 @@ const BuyNow = () => {
         addresses={addresses}
         defaultAddressId={infoUser.default_shipping_address?.id}
         navigate={navigate}
+        setIsModalAddOpen={setIsModalAddOpen}
+      />
+      <UserAddAddressModal
+        isOpen={isModalAddOpen}
+        onClose={() => setIsModalAddOpen(false)}
+        onSave={handleSubmitAddress}
       />
     </div>
   );

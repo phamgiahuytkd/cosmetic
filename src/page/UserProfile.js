@@ -173,7 +173,7 @@ const UserProfile = () => {
 
       <div className="user-profile-right">
         <img
-          src={userInfo?.avatar && getImageUrl(userInfo?.avatar)}
+          src={userInfo?.avatar ? getImageUrl(userInfo?.avatar) : "/image/default-avatar-profile.jpg"}
           alt="Avatar"
           className="user-profile-avatar"
         />

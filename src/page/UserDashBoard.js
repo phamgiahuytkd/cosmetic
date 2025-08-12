@@ -6,14 +6,14 @@ import { getImageUrl, handleLogoutConfirm } from "../component/commonFunc";
 import { useUser } from "../component/UserContext";
 
 const UserDashboard = () => {
-   const { user } = useUser();
+  const { user } = useUser();
 
   return (
     <div className="user-dash-board-container">
       <aside className="user-dash-board-sidebar">
         <div className="user-dash-board-user">
           <img
-            src={user?.avatar && getImageUrl(user?.avatar)}
+            src={user?.avatar ? getImageUrl(user?.avatar) : "/image/default-avatar-profile.jpg"}
             alt="Avatar"
             className="user-dash-board-avatar"
           />
@@ -39,7 +39,7 @@ const UserDashboard = () => {
             className={({ isActive }) =>
               `user-dash-board-link ${isActive ? "active" : ""}`
             }>
-          Đánh giá
+            Đánh giá
           </NavLink>
           <NavLink
             onClick={handleLogoutConfirm}

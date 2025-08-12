@@ -7,7 +7,7 @@ const AddressModalCheckout = ({
   onSave,
   addresses,
   defaultAddressId,
-  navigate,
+  setIsModalAddOpen,
 }) => {
   const [selectedAddressId, setSelectedAddressId] = useState(
     defaultAddressId ? defaultAddressId.toString() : ""
@@ -73,9 +73,8 @@ const AddressModalCheckout = ({
                   <br />
                   <span>{addr.phone || "Không có SĐT"}</span>
                   <br />
-                  <span>{`${addr.address_detail || "Không có chi tiết"}, ${
-                    addr.address || "Không có địa chỉ"
-                  }`}</span>
+                  <span>{`${addr.address_detail || "Không có chi tiết"}, ${addr.address || "Không có địa chỉ"
+                    }`}</span>
                 </div>
               }
               sx={{ mb: 2 }}
@@ -91,7 +90,10 @@ const AddressModalCheckout = ({
           }}>
           <Button
             variant="text"
-            onClick={() => navigate("/dashboard/info")}
+            onClick={() => {
+              onClose(); // Đóng modal hiện tại
+              setIsModalAddOpen(true); // Mở form thêm địa chỉ mới
+            }}
             sx={{ color: "primary.main" }}>
             Thêm địa chỉ mới
           </Button>
