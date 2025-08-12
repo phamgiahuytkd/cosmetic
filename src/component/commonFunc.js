@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
 import BuyNow from "../page/BuyNow";
 
-
 // hàm lấy ảnh
 export const getImageUrl = (imageName) => {
   if (!imageName) return ""; // Xử lý trường hợp imageName rỗng hoặc null
@@ -18,8 +17,8 @@ export const getImageUrl = (imageName) => {
 };
 
 // hàm chuyển tiền
-export const formatPrice = (price) => price && (price.toLocaleString("vi-VN") + "₫");
-
+export const formatPrice = (price) =>
+  price && price.toLocaleString("vi-VN") + "₫";
 
 // hàm định dạng ngày
 export const formatDateTimeVN = (inputDate) => {
@@ -41,7 +40,6 @@ export const formatDateTimeVN = (inputDate) => {
 
   return `${timePart} - ${datePart}`;
 };
-
 
 //hàm in hoa hết chữ
 export const toUpperCase = (str) => {
@@ -162,22 +160,38 @@ export const handleAddToCart = (
           setOpenAddAndBuyNowModal({ open: true, isBuyNow: false });
           return;
         }
-
         api
-          .post("/cart", {
-            product_variant_id: response.data.result[0].id,
-            quantity: 1,
-          })
-          .then(() => {
-            toast.success("🛒 Đã thêm sản phẩm vào giỏ hàng!");
-            fetchCart(); // gọi lại nếu có
+          .get(`/gift/${response.data.result[0].id}/product-variant`)
+          .then((response2) => {
+            const gift = response2.data.result;
+            if (gift.length > 1) {
+              setAddAndBuyNowProduct({
+                product_variant: response.data.result,
+              });
+              setOpenAddAndBuyNowModal({ open: true, isBuyNow: false });
+              return;
+            } else {
+              api
+                .post("/cart", {
+                  product_variant_id: response.data.result[0].id,
+                  quantity: 1,
+                  selected_gift_id: gift?.[0].id || null,
+                })
+                .then(() => {
+                  toast.success("🛒 Đã thêm sản phẩm vào giỏ hàng!");
+                  fetchCart(); // gọi lại nếu có
+                })
+                .catch((err) => {
+                  if (err.response?.data.code === 3012) {
+                    toast.info("Sản phẩm không đủ số lượng!");
+                  } else {
+                    toast.error("Lỗi thêm vào giỏ hàng!");
+                  }
+                });
+            }
           })
           .catch((err) => {
-            if (err.response?.data.code === 3012) {
-              toast.info("Sản phẩm không đủ số lượng!");
-            } else {
-              toast.error("Lỗi thêm vào giỏ hàng!");
-            }
+            toast.error("Lỗi thêm vào giỏ hàng!");
           });
 
         // Dừng trạng thái tải
@@ -188,8 +202,6 @@ export const handleAddToCart = (
   } else {
     RequireLoginAlert(navigate);
   }
-
-  
 };
 
 ///////// mua ngay ////////
@@ -227,12 +239,37 @@ export const setBuyNow = (
           setOpenAddAndBuyNowModal({ open: true, isBuyNow: true });
           return;
         }
+        api
+          .get(`/gift/${response.data.result[0].id}/product-variant`)
+          .then((response2) => {
+            const gift = response2.data.result;
+            if (gift.length > 1) {
+              setAddAndBuyNowProduct({
+                product_variant: response.data.result,
+                product: product,
+              });
+              setOpenAddAndBuyNowModal({ open: true, isBuyNow: true });
+              return;
+            } else {
+              setOpenLoveModal(false);
+              const product_variant = response.data.result[0];
+              const selectedGift = gift?.[0];
+              const data = {
+                ...product,
+                product_variant,
+                quantity,
+                selectedGift
+              }; // gộp tất cả thông tin sản phẩm + số lượng
+              sessionStorage.setItem("buyNowData", JSON.stringify(data));
+              navigate("/buynow");
+            }
+          })
+          .catch((err) => {
+            toast.error("Lỗi mua ngay!");
+          });
 
-        setOpenLoveModal(false);
-        const product_variant = response.data.result[0];
-        const data = { ...product, product_variant, quantity }; // gộp tất cả thông tin sản phẩm + số lượng
-        sessionStorage.setItem("buyNowData", JSON.stringify(data));
-        navigate("/buynow");
+
+        
 
         // Dừng trạng thái tải
       })
@@ -277,8 +314,6 @@ export const RequireLoginAlert = (navigate, to = "/auth/login") => {
     }
   });
 };
-
-
 
 //Thông báo đăng xuất
 export const handleLogoutConfirm = () => {

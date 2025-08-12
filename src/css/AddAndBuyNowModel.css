@@ -110,7 +110,6 @@
       0px 2px 6px rgba(0, 0, 0, 0.2);
     /* shadow ngoài */
   transition: all 0.2s ease;
-  width: 6rem;
 }
 
 .user-product-add-and-buy-now-attribute-label.selected {
@@ -257,4 +256,40 @@
 .user-product-add-and-buy-now-warning {
   font-style: italic;
   color: #777;
+}
+
+
+
+.user-product-add-and-buy-now-gift{
+  display: flex;
+  gap: 1rem;
+}
+
+.user-product-add-and-buy-now-gift-label {
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid #a5a5a560;
+  padding: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0.2rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  /* tính cả padding & border vào width/height */
+  display: flex;
+  /* canh giữa ảnh */
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+.user-product-add-and-buy-now-gift-label.selected {
+  border: 0.1px solid rgba(24, 143, 255, 0.6);
+  opacity: 1;
+}
+
+.user-product-add-and-buy-now-gift-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }

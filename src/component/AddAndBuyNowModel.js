@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { formatPrice, formatStockNumber, getBuyNow, getImageUrl, RequireLoginAlert } from "./commonFunc";
+import {
+  formatPrice,
+  formatStockNumber,
+  getBuyNow,
+  getImageUrl,
+  RequireLoginAlert,
+} from "./commonFunc";
 import { FaStar } from "react-icons/fa";
 import "../css/AddAndBuyNowModel.css";
 import { toast } from "react-toastify";
@@ -23,11 +29,24 @@ const AddAndBuyNowModel = ({
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [matchedVariant, setMatchedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [gifts, setGifts] = useState([]);
+  const [selectedGiftIndex, setSelectedGiftIndex] = useState(0);
 
   useEffect(() => {
     if (matchedVariant) {
       setQuantity(1);
     }
+  }, [matchedVariant]);
+
+  useEffect(() => {
+    api
+      .get(`/gift/${matchedVariant?.id}/product-variant`)
+      .then((response) => {
+        setGifts(response.data.result);
+      })
+      .catch((error) => {
+        console.error(error.response?.data?.message || "Lỗi không xác định");
+      });
   }, [matchedVariant]);
 
   const handleIncrease = () => {
@@ -104,9 +123,11 @@ const AddAndBuyNowModel = ({
   };
 
   const handleAddToCart = () => {
+    const selectedGift = gifts?.[selectedGiftIndex]; //
+
     if (isBuyNow) {
       const product_variant = matchedVariant;
-      const data = { ...product, product_variant, quantity }; // gộp tất cả thông tin sản phẩm + số lượng
+      const data = { ...product, product_variant, quantity, selectedGift }; // gộp tất cả thông tin sản phẩm + số lượng
       sessionStorage.setItem("buyNowData", JSON.stringify(data));
       onClose();
       setTimeout(() => {
@@ -118,6 +139,7 @@ const AddAndBuyNowModel = ({
         .post("/cart", {
           product_variant_id: matchedVariant.id,
           quantity: quantity,
+          selected_gift_id: selectedGift?.id || null,
         })
         .then(() => {
           // gọi lại nếu có
@@ -246,6 +268,37 @@ const AddAndBuyNowModel = ({
               ? "Không tìm thấy biến thể phù hợp."
               : "Vui lòng chọn đầy đủ các phân loại."}
           </p>
+        )}
+
+        {/* Vẽ lựa chọn quà tặng */}
+        {gifts?.length > 0 && (
+          <div>
+            <h4 className="user-product-add-and-buy-now-attribute-title">
+              Quà tặng
+            </h4>
+            <div className="user-product-add-and-buy-now-gift">
+              {gifts.map((gift, index) => (
+                <label
+                  key={index}
+                  className={`user-product-add-and-buy-now-gift-label ${
+                    selectedGiftIndex === index ? "selected" : ""
+                  }`}>
+                  <input
+                    type="radio"
+                    name="gift" // Đảm bảo các radio button thuộc cùng nhóm
+                    checked={index === selectedGiftIndex} // Kiểm tra quà tặng được chọn
+                    onChange={() => setSelectedGiftIndex(index)} // Cập nhật state khi chọn
+                    className="user-product-add-and-buy-now-attribute-input"
+                  />
+                  <img
+                    src={`${getImageUrl(gift.image)}`}
+                    alt={`gift-${index}`}
+                    className="user-product-add-and-buy-now-gift-image"
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Vẽ lựa chọn thuộc tính */}
