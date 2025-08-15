@@ -49,7 +49,7 @@ api.interceptors.request.use(
 
           try {
             const response = await axios.post(
-              "http://localhost:8080/iCommerce/auth/refresh",
+              "https://icommerce-production.up.railway.app/iCommerce/auth/refresh",
               {
                 token: token,
               }

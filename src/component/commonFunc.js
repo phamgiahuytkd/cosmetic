@@ -258,7 +258,7 @@ export const setBuyNow = (
                 ...product,
                 product_variant,
                 quantity,
-                selectedGift
+                selectedGift,
               }; // gộp tất cả thông tin sản phẩm + số lượng
               sessionStorage.setItem("buyNowData", JSON.stringify(data));
               navigate("/buynow");
@@ -267,9 +267,6 @@ export const setBuyNow = (
           .catch((err) => {
             toast.error("Lỗi mua ngay!");
           });
-
-
-        
 
         // Dừng trạng thái tải
       })
