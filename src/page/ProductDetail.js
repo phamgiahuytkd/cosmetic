@@ -41,10 +41,6 @@ import ProductFeatures from "../component/ProductFeatures";
 import ProductReview from "../component/ProductReview";
 import GroupProductSlider from "../component/GroupProductSlider";
 
-
-
-
-
 const ProductDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { brands, categories } = useBrandCategory();
@@ -63,9 +59,6 @@ const ProductDetail = () => {
   const { fetchCart } = useCart();
   const { id } = useParams();
 
-
-
-
   useEffect(() => {
     api
       .get(`/product/${id}`)
@@ -76,7 +69,6 @@ const ProductDetail = () => {
         console.error(error.response?.data?.message || "Lỗi không xác định");
       });
   }, [id]);
-
 
   useEffect(() => {
     api
@@ -89,20 +81,16 @@ const ProductDetail = () => {
       });
   }, [id]);
 
-
   useEffect(() => {
     api
       .get(`/gift/${matchedVariant?.id}/product-variant`)
       .then((response) => {
         setGifts(response.data.result);
-
       })
       .catch((error) => {
         console.error(error.response?.data?.message || "Lỗi không xác định");
       });
   }, [matchedVariant]);
-
-
 
   useEffect(() => {
     api
@@ -128,21 +116,15 @@ const ProductDetail = () => {
         console.error(error.response?.data?.message || "Lỗi không xác định");
       });
 
-
     api
       .get(`/rating/${id}/ratings`)
       .then((response) => {
-
         setRatings(response.data.result);
       })
       .catch((error) => {
         console.error(error.response?.data?.message || "Lỗi không xác định");
       });
-
-
-
   }, [id]);
-
 
   useEffect(() => {
     if (matchedVariant) {
@@ -263,10 +245,6 @@ const ProductDetail = () => {
         });
     }
   };
-
-
-
-
 
   const [top10DiscountProducts, setTop10DiscountProducts] = useState([]);
   useEffect(() => {
@@ -401,7 +379,7 @@ const ProductDetail = () => {
                   <h4 className="user-product-detail-product-price-origin">
                     {formatPrice(
                       (matchedVariant?.price * 100) /
-                      (100 - matchedVariant?.percent)
+                        (100 - matchedVariant?.percent)
                     )}
                     <strong>-{matchedVariant.percent}%</strong>
                   </h4>
@@ -510,10 +488,11 @@ const ProductDetail = () => {
 
                 <div className="user-product-detail-love">
                   <button
-                    className={`user-product-detail-love-button ${favoriteIdSet.has(product.id)
-                      ? "user-product-card-is-favorite"
-                      : ""
-                      }`}
+                    className={`user-product-detail-love-button ${
+                      favoriteIdSet.has(product.id)
+                        ? "user-product-card-is-favorite"
+                        : ""
+                    }`}
                     onClick={(e) => {
                       if (isLoved) {
                         handleRemoveToLove(

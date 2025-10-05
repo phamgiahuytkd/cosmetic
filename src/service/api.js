@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 // Cấu hình cơ bản cho axios
 const api = axios.create({
-  baseURL: "http://localhost:8080/iCommerce", // Địa chỉ của backend
+  baseURL: "https://icommerce-production.up.railway.app/iCommerce", // Địa chỉ của backend
   headers: {
     "Content-Type": "application/json",
   },
@@ -49,7 +49,7 @@ api.interceptors.request.use(
 
           try {
             const response = await axios.post(
-              "http://localhost:8080/iCommerce/auth/refresh",
+              "https://icommerce-production.up.railway.app/iCommerce/auth/refresh",
               {
                 token: token,
               }
