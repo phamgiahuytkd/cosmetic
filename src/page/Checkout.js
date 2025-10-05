@@ -3,29 +3,25 @@ import "../css/Checkout.css";
 import { FaCheck, FaGift } from "react-icons/fa";
 import api from "../service/api";
 import { useCart } from "../component/CartContext";
+import { useUser } from "../component/UserContext";
 import { MdDeleteForever } from "react-icons/md";
 import { getImageUrl } from "../component/commonFunc";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import {
-  Modal,
-  Box,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AddressModalCheckout from "../component/AddressModalCheckout";
 import {
   PaymentOptionCheckout,
   paymentMethods,
 } from "../component/PaymentOptionCheckout";
 import UserAddAddressModal from "../component/UserAddAddressModal";
+import VoucherSelector from "../component/VoucherSelector"; // Import component mới
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { cartItems, fetchCart } = useCart();
+  const { voucher, user, fetchUser } = useUser();
   const getDeviceType = () => {
     const ua = navigator.userAgent;
     if (/mobile/i.test(ua)) return "mobile";
@@ -44,11 +40,11 @@ const Checkout = () => {
     payment: "",
     device: getDeviceType(),
     amount: 0,
+    voucher_id: null,
   });
   const [paymentMethod, setPaymentMethod] = useState("bank transfer");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { cartItems, fetchCart } = useCart();
   const [updatedIndex, setUpdatedIndex] = useState(null);
   const [itemsInCart, setItemsInCart] = useState([]);
   const [tempQuantities, setTempQuantities] = useState({});
@@ -56,8 +52,9 @@ const Checkout = () => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [isAddressInitialized, setIsAddressInitialized] = useState(false);
+  const [selectedVoucher, setSelectedVoucher] = useState(null);
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false);
 
-  // Hàm fetch thông tin người dùng
   const fetchUserInfo = async () => {
     try {
       const response = await api.get("/user/info");
@@ -81,6 +78,42 @@ const Checkout = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const calculateDiscountedTotal = () => {
+    if (!selectedVoucher) return total;
+
+    if (total < selectedVoucher.min_order_amount) {
+      toast.error(
+        `Đơn hàng phải có giá trị tối thiểu ${selectedVoucher.min_order_amount.toLocaleString()}đ để áp dụng voucher!`
+      );
+      setSelectedVoucher(null);
+      setFormData((prev) => ({ ...prev, voucher_id: null }));
+      return total;
+    }
+
+    if (
+      selectedVoucher.used_count >= selectedVoucher.usage_limit ||
+      new Date(selectedVoucher.end_day) < new Date()
+    ) {
+      toast.error("Voucher đã hết hạn hoặc đã sử dụng hết!");
+      setSelectedVoucher(null);
+      setFormData((prev) => ({ ...prev, voucher_id: null }));
+      return total;
+    }
+
+    let discount = 0;
+    if (selectedVoucher.voucher_type === "PERCENTAGE") {
+      discount = Math.min(
+        (total * selectedVoucher.percent) / 100,
+        selectedVoucher.max_amount
+      );
+    } else {
+      discount = selectedVoucher.max_amount;
+    }
+    return total - discount;
+  };
+
+  const discountedTotal = calculateDiscountedTotal();
 
   useEffect(() => {
     fetchUserInfo();
@@ -106,9 +139,10 @@ const Checkout = () => {
     setFormData((prev) => ({
       ...prev,
       payment: paymentMethod,
-      amount: total,
+      amount: discountedTotal,
+      voucher_id: selectedVoucher ? selectedVoucher.id : null,
     }));
-  }, [paymentMethod, total]);
+  }, [paymentMethod, discountedTotal, selectedVoucher]);
 
   useEffect(() => {
     setItemsInCart(cartItems);
@@ -152,6 +186,18 @@ const Checkout = () => {
     setIsModalOpen(false);
   };
 
+  const handleOpenVoucherModal = () => {
+    if (!voucher || voucher.length === 0) {
+      toast.error("Bạn chưa có mã giảm giá nào!");
+      return;
+    }
+    setIsVoucherModalOpen(true);
+  };
+
+  const handleCloseVoucherModal = () => {
+    setIsVoucherModalOpen(false);
+  };
+
   const handleSaveAddress = (selectedAddress) => {
     setFormData((prev) => ({
       ...prev,
@@ -181,9 +227,7 @@ const Checkout = () => {
         timer: 2500,
         timerProgressBar: true,
       });
-      // Fetch lại thông tin người dùng để cập nhật địa chỉ mặc định
       await fetchUserInfo();
-      // Reset isAddressInitialized để useEffect cập nhật formData
       setIsAddressInitialized(false);
       setIsModalAddOpen(false);
     } catch (err) {
@@ -194,6 +238,16 @@ const Checkout = () => {
         text: "Không thể thêm địa chỉ!",
       });
     }
+  };
+
+  const handleSelectVoucher = (voucher) => {
+    setSelectedVoucher(voucher);
+    setIsVoucherModalOpen(false);
+  };
+
+  const handleRemoveVoucher = () => {
+    setSelectedVoucher(null);
+    setFormData((prev) => ({ ...prev, voucher_id: null }));
   };
 
   const handlePlaceOrder = async (e) => {
@@ -224,6 +278,12 @@ const Checkout = () => {
         return;
       }
 
+      if (formData.voucher_id.trim() && user.reputation < 100) {
+        toast.error("Bạn không thể dùng mã khi uy tín dưới 100!");
+        setLoading(false);
+        return;
+      }
+
       const orderPayload = {
         name: formData.name,
         phone: formData.phone,
@@ -234,6 +294,7 @@ const Checkout = () => {
         payment: formData.payment,
         device: formData.device,
         amount: formData.amount,
+        voucher_id: formData.voucher_id,
       };
       const response = await api.post("/order", orderPayload);
       Swal.fire({
@@ -242,6 +303,7 @@ const Checkout = () => {
         text: "Bạn đã đặt hàng thành công!",
       });
       fetchCart();
+      fetchUser();
       navigate(`/order-detail/${response.data.result}`);
     } catch (err) {
       console.error(
@@ -319,23 +381,26 @@ const Checkout = () => {
     return numericValue;
   };
 
-  const OrderSummary = ({ isMobile = false, total }) => {
+  const OrderSummary = ({ isMobile = false, total, discountedTotal }) => {
     return (
       <div
-        className={`user-checkout-order-summary ${isMobile ? "user-checkout-order-summary--mobile" : ""
-          }`}
-      >
+        className={`user-checkout-order-summary ${
+          isMobile ? "user-checkout-order-summary--mobile" : ""
+        }`}>
         <div className="user-checkout-order-summary-row">
           <p>Tổng tiền hàng</p>
           <p>{total ? total.toLocaleString() : "0"}đ</p>
         </div>
-        <div className="user-checkout-order-summary-row">
-          {/* <p>Phí vận chuyển</p><p>-</p> */}
-        </div>
+        {selectedVoucher && (
+          <div className="user-checkout-order-summary-row promo">
+            <p>Giảm giá ({selectedVoucher.code})</p>
+            <p>-{(total - discountedTotal).toLocaleString()}đ</p>
+          </div>
+        )}
         <div className="user-checkout-order-summary-row">
           <p className="user-checkout-order-summary-total">Tổng thanh toán</p>
           <p className="user-checkout-order-summary-total">
-            {total ? total.toLocaleString() : "0"}đ
+            {discountedTotal ? discountedTotal.toLocaleString() : "0"}đ
           </p>
         </div>
       </div>
@@ -348,8 +413,7 @@ const Checkout = () => {
         <form
           id="hara_checkout"
           className="user-checkout-checkout-form"
-          onSubmit={handlePlaceOrder}
-        >
+          onSubmit={handlePlaceOrder}>
           <div className="user-checkout-shadow-container">
             <h2 className="user-checkout-text-head">Thông tin giao hàng</h2>
             <div className="user-checkout-info-order">
@@ -379,7 +443,8 @@ const Checkout = () => {
                     </strong>{" "}
                     {formData.fulladdress}
                   </p>
-                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                     <Button variant="outlined" onClick={handleOpenModal}>
                       Chọn địa chỉ khác
                     </Button>
@@ -388,16 +453,44 @@ const Checkout = () => {
               ) : (
                 <>
                   <div>Bạn chưa có địa chỉ, hãy thêm địa chỉ mặc định.</div>
-                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => setIsModalAddOpen(true)}
-                    >
+                      onClick={() => setIsModalAddOpen(true)}>
                       Thêm địa chỉ mặc định
                     </Button>
                   </Box>
                 </>
+              )}
+            </div>
+          </div>
+          <div className="user-checkout-shadow-container">
+            <h2 className="user-checkout-text-head">Mã giảm giá</h2>
+            <div className="user-checkout-coupon-section">
+              {selectedVoucher ? (
+                <div className="user-checkout-coupon-discount">
+                  <FaCheck size={16} />
+                  <span>{selectedVoucher.code}</span>
+                  <span>-{(total - discountedTotal).toLocaleString()}đ</span>
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={handleRemoveVoucher}
+                    sx={{ color: "#e11d48" }}>
+                    Xóa
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  className="user-checkout-coupon-button"
+                  onClick={handleOpenVoucherModal}>
+                  <div className="user-checkout-coupon-button-content">
+                    <FaGift size={16} />
+                    <span>Chọn mã giảm giá</span>
+                  </div>
+                </Button>
               )}
             </div>
           </div>
@@ -421,13 +514,18 @@ const Checkout = () => {
                 id="note"
                 placeholder="Ghi chú đơn hàng"
                 value={formData.note}
-                onChange={(e) => handleInputChange("note", e.target.value)}
-              ></textarea>
+                onChange={(e) =>
+                  handleInputChange("note", e.target.value)
+                }></textarea>
             </div>
           </div>
           <div className="user-checkout-shadow-container user-checkout-order-summary--mobile">
             <h2 className="user-checkout-text-head">Tóm tắt đơn hàng</h2>
-            <OrderSummary isMobile total={total} />
+            <OrderSummary
+              isMobile
+              total={total}
+              discountedTotal={discountedTotal}
+            />
           </div>
         </form>
         {error && <p className="user-checkout-error-message">{error}</p>}
@@ -446,8 +544,7 @@ const Checkout = () => {
                       updateCartItem(cartItems[index]);
                       setUpdatedIndex(null);
                     }
-                  }}
-                >
+                  }}>
                   <div className="user-cart-item-left">
                     <img
                       src={getImageUrl(item.image)}
@@ -529,7 +626,9 @@ const Checkout = () => {
                   </div>
                 </div>
                 {item.gift && (
-                  <div className="user-cart-item gift" style={{ margin: "15px" }}>
+                  <div
+                    className="user-cart-item gift"
+                    style={{ margin: "15px" }}>
                     <div className="user-cart-item-left">
                       <img
                         src={getImageUrl(item.gift?.image)}
@@ -564,14 +663,13 @@ const Checkout = () => {
         </div>
         <div className="user-checkout-shadow-container">
           <h2 className="user-checkout-text-head">Tóm tắt đơn hàng</h2>
-          <OrderSummary total={total} />
+          <OrderSummary total={total} discountedTotal={discountedTotal} />
           <div className="user-checkout-place-order">
             <button
               className="user-checkout-place-order-button"
               type="submit"
               form="hara_checkout"
-              disabled={loading}
-            >
+              disabled={loading}>
               {loading ? "Đang xử lý..." : "Đặt hàng"}
             </button>
           </div>
@@ -590,6 +688,14 @@ const Checkout = () => {
         isOpen={isModalAddOpen}
         onClose={() => setIsModalAddOpen(false)}
         onSave={handleSubmitAddress}
+      />
+      <VoucherSelector
+        open={isVoucherModalOpen}
+        onClose={handleCloseVoucherModal}
+        vouchers={voucher}
+        onSelectVoucher={handleSelectVoucher}
+        selectedVoucher={selectedVoucher}
+        totalOrderAmount={total}
       />
     </div>
   );

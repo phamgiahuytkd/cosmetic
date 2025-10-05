@@ -21,6 +21,7 @@ const OrderDetail = () => {
   const [orderStatus, setOrderStatus] = useState([]);
   const [latestStatus, setLatestStatus] = useState({});
   const [paidStatus, setPaidStatus] = useState({});
+  const [voucher, setVoucher] = useState({});
 
   const [cartOrder, setCartOrder] = useState([]);
 
@@ -46,6 +47,18 @@ const OrderDetail = () => {
       .get(`/order/${id}`)
       .then((response) => {
         setOrder(response.data.result);
+        // Dừng trạng thái tải
+      })
+      .catch((error) => {
+        console.error(error.response?.data?.message || "Lỗi không xác định");
+      });
+  }, [id]);
+
+  useEffect(() => {
+    api
+      .get(`/voucher/${id}/order`)
+      .then((response) => {
+        setVoucher(response.data.result);
         // Dừng trạng thái tải
       })
       .catch((error) => {
@@ -124,6 +137,25 @@ const OrderDetail = () => {
           text: "Không thể thanh toán!",
         });
       });
+  };
+
+  const total = cartOrder.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  const calculateDiscounted = (selectedVoucher) => {
+    let discount = 0;
+
+    if (selectedVoucher.voucher_type === "PERCENTAGE") {
+      discount = Math.min(
+        (total * selectedVoucher.percent) / 100,
+        selectedVoucher.max_amount
+      );
+    } else {
+      discount = selectedVoucher.max_amount;
+    }
+    return discount;
   };
 
   const cancelOrder = async (orderId) => {
@@ -437,7 +469,7 @@ const OrderDetail = () => {
               Tổng tiền hàng
             </span>
             <span className="user-order-detail-order-summary-value">
-              {order?.amount.toLocaleString()}₫
+              {total?.toLocaleString()}₫
             </span>
           </div>
           <div className="user-order-detail-order-summary-row">
@@ -448,6 +480,18 @@ const OrderDetail = () => {
               Miễn phí
             </span>
           </div>
+          {voucher && (
+            <div
+              className="user-order-detail-order-summary-row"
+              style={{ color: "#fa5f9d" }}>
+              <span className="user-order-detail-order-summary-label">
+                Giảm giá ({voucher.code})
+              </span>
+              <span className="user-order-detail-order-summary-value">
+                -{calculateDiscounted(voucher)?.toLocaleString()}đ
+              </span>
+            </div>
+          )}
           <div className="user-order-detail-order-summary-row user-order-detail-order-summary-total">
             <span className="user-order-detail-order-summary-label">
               Tổng thanh toán

@@ -46,6 +46,15 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
+.user-home-promo-info-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.user-home-promo-info-icon:hover {
+  transform: scale(1.5);
+}
+
 .user-home-promo-icon svg{
   transform: rotate(90deg);
 }

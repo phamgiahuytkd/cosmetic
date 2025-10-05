@@ -21,9 +21,13 @@ import {
 } from "../component/PaymentOptionCheckout";
 import AddressModalCheckout from "../component/AddressModalCheckout";
 import UserAddAddressModal from "../component/UserAddAddressModal";
+import VoucherSelector from "../component/VoucherSelector"; // Import VoucherSelector
 import Swal from "sweetalert2";
+import { useUser } from "../component/UserContext"; // Import useUser để lấy voucher
 
 const BuyNow = () => {
+  const { voucher } = useUser(); // Lấy danh sách voucher từ UserContext
+  const navigate = useNavigate();
   const getDeviceType = () => {
     const ua = navigator.userAgent;
     if (/mobile/i.test(ua)) return "mobile";
@@ -42,6 +46,7 @@ const BuyNow = () => {
     device: getDeviceType(),
     amount: 0,
     carts: [],
+    voucher_id: null, // Thêm voucher_id
   });
   const [paymentMethod, setPaymentMethod] = useState("bank transfer");
   const [error, setError] = useState("");
@@ -51,8 +56,9 @@ const BuyNow = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isAddressInitialized, setIsAddressInitialized] = useState(false);
-  const navigate = useNavigate();
   const [previousQuantity, setPreviousQuantity] = useState(1);
+  const [selectedVoucher, setSelectedVoucher] = useState(null); // State cho voucher được chọn
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState(false); // State cho modal voucher
 
   const fetchUserInfo = async () => {
     try {
@@ -80,7 +86,7 @@ const BuyNow = () => {
     } else {
       setItemBuyNow(item);
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     setPreviousQuantity(itemBuyNow.quantity || 1);
@@ -89,6 +95,43 @@ const BuyNow = () => {
   const total = itemBuyNow.product_variant?.price
     ? itemBuyNow.product_variant.price * (itemBuyNow.quantity || 1)
     : 0;
+
+  // Tính tổng sau giảm giá
+  const calculateDiscountedTotal = () => {
+    if (!selectedVoucher) return total;
+
+    if (total < selectedVoucher.min_order_amount) {
+      toast.error(
+        `Đơn hàng phải có giá trị tối thiểu ${selectedVoucher.min_order_amount.toLocaleString()}đ để áp dụng voucher!`
+      );
+      setSelectedVoucher(null);
+      setFormData((prev) => ({ ...prev, voucher_id: null }));
+      return total;
+    }
+
+    if (
+      selectedVoucher.used_count >= selectedVoucher.usage_limit ||
+      new Date(selectedVoucher.end_day) < new Date()
+    ) {
+      toast.error("Voucher đã hết hạn hoặc đã sử dụng hết!");
+      setSelectedVoucher(null);
+      setFormData((prev) => ({ ...prev, voucher_id: null }));
+      return total;
+    }
+
+    let discount = 0;
+    if (selectedVoucher.voucher_type === "PERCENTAGE") {
+      discount = Math.min(
+        (total * selectedVoucher.percent) / 100,
+        selectedVoucher.max_amount
+      );
+    } else {
+      discount = selectedVoucher.max_amount;
+    }
+    return total - discount;
+  };
+
+  const discountedTotal = calculateDiscountedTotal();
 
   useEffect(() => {
     fetchUserInfo();
@@ -99,8 +142,7 @@ const BuyNow = () => {
       setFormData((prev) => ({
         ...prev,
         name: infoUser.default_shipping_address.name || "",
-        phone:
-          infoUser.default_shipping_address.phone || infoUser.phone || "",
+        phone: infoUser.default_shipping_address.phone || infoUser.phone || "",
         address: infoUser.default_shipping_address.address || "",
         fulladdress: infoUser.default_shipping_address.address_detail || "",
       }));
@@ -123,15 +165,17 @@ const BuyNow = () => {
     setFormData((prev) => ({
       ...prev,
       payment: paymentMethod,
-      amount: total,
+      amount: discountedTotal, // Cập nhật amount với discountedTotal
       carts,
+      voucher_id: selectedVoucher ? selectedVoucher.id : null, // Cập nhật voucher_id
     }));
   }, [
     itemBuyNow.product_variant,
     itemBuyNow.quantity,
     itemBuyNow.selectedGift,
     paymentMethod,
-    total,
+    discountedTotal,
+    selectedVoucher,
   ]);
 
   const handleInputChange = (fieldId, newValue) => {
@@ -164,6 +208,28 @@ const BuyNow = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleOpenVoucherModal = () => {
+    if (!voucher || voucher.length === 0) {
+      toast.error("Bạn chưa có mã giảm giá nào!");
+      return;
+    }
+    setIsVoucherModalOpen(true);
+  };
+
+  const handleCloseVoucherModal = () => {
+    setIsVoucherModalOpen(false);
+  };
+
+  const handleSelectVoucher = (voucher) => {
+    setSelectedVoucher(voucher);
+    setIsVoucherModalOpen(false);
+  };
+
+  const handleRemoveVoucher = () => {
+    setSelectedVoucher(null);
+    setFormData((prev) => ({ ...prev, voucher_id: null }));
   };
 
   const handleSaveAddress = (selectedAddress) => {
@@ -234,6 +300,12 @@ const BuyNow = () => {
         return;
       }
 
+      if (formData.voucher_id && infoUser.reputation < 100) {
+        toast.error("Bạn không thể dùng mã khi uy tín dưới 100!");
+        setLoading(false);
+        return;
+      }
+
       await api.post(`/order/buynow`, formData).then((response) => {
         toast.success("Bạn đã đặt hàng thành công!");
         clearBuyNow();
@@ -253,23 +325,26 @@ const BuyNow = () => {
     }
   };
 
-  const OrderSummary = ({ isMobile = false, total }) => {
+  const OrderSummary = ({ isMobile = false, total, discountedTotal }) => {
     return (
       <div
-        className={`user-checkout-order-summary ${isMobile ? "user-checkout-order-summary--mobile" : ""
-          }`}
-      >
+        className={`user-checkout-order-summary ${
+          isMobile ? "user-checkout-order-summary--mobile" : ""
+        }`}>
         <div className="user-checkout-order-summary-row">
           <p>Tổng tiền hàng</p>
           <p>{total?.toLocaleString() || "0"}đ</p>
         </div>
-        <div className="user-checkout-order-summary-row">
-          {/* <p>Phí vận chuyển</p><p>-</p> */}
-        </div>
+        {selectedVoucher && (
+          <div className="user-checkout-order-summary-row promo">
+            <p>Giảm giá ({selectedVoucher.code})</p>
+            <p>-{(total - discountedTotal).toLocaleString()}đ</p>
+          </div>
+        )}
         <div className="user-checkout-order-summary-row">
           <p className="user-checkout-order-summary-total">Tổng thanh toán</p>
           <p className="user-checkout-order-summary-total">
-            {total?.toLocaleString() || "0"}đ
+            {discountedTotal?.toLocaleString() || "0"}đ
           </p>
         </div>
       </div>
@@ -310,8 +385,7 @@ const BuyNow = () => {
         <form
           id="hara_checkout_form"
           className="user-checkout-checkout-form"
-          onSubmit={handlePlaceOrder}
-        >
+          onSubmit={handlePlaceOrder}>
           <div className="user-checkout-shadow-container">
             <h2 className="user-checkout-text-head">Thông tin giao hàng</h2>
             <div className="user-checkout-info-order">
@@ -341,7 +415,8 @@ const BuyNow = () => {
                     </strong>{" "}
                     {formData.fulladdress}
                   </p>
-                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                     <Button variant="outlined" onClick={handleOpenModal}>
                       Chọn địa chỉ khác
                     </Button>
@@ -350,16 +425,44 @@ const BuyNow = () => {
               ) : (
                 <>
                   <div>Bạn chưa có địa chỉ, hãy thêm địa chỉ mặc định.</div>
-                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => setIsModalAddOpen(true)}
-                    >
+                      onClick={() => setIsModalAddOpen(true)}>
                       Thêm địa chỉ mặc định
                     </Button>
                   </Box>
                 </>
+              )}
+            </div>
+          </div>
+          <div className="user-checkout-shadow-container">
+            <h2 className="user-checkout-text-head">Mã giảm giá</h2>
+            <div className="user-checkout-coupon-section">
+              {selectedVoucher ? (
+                <div className="user-checkout-coupon-discount">
+                  <FaCheck size={16} />
+                  <span>{selectedVoucher.code}</span>
+                  <span>-{(total - discountedTotal).toLocaleString()}đ</span>
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={handleRemoveVoucher}
+                    sx={{ color: "#e11d48" }}>
+                    Xóa
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  className="user-checkout-coupon-button"
+                  onClick={handleOpenVoucherModal}>
+                  <div className="user-checkout-coupon-button-content">
+                    <FaGift size={16} />
+                    <span>Chọn mã giảm giá</span>
+                  </div>
+                </Button>
               )}
             </div>
           </div>
@@ -383,13 +486,18 @@ const BuyNow = () => {
                 id="note"
                 placeholder="Ghi chú đơn hàng"
                 value={formData.note}
-                onChange={(e) => handleInputChange("note", e.target.value)}
-              ></textarea>
+                onChange={(e) =>
+                  handleInputChange("note", e.target.value)
+                }></textarea>
             </div>
           </div>
           <div className="user-checkout-shadow-container user-checkout-order-summary--mobile">
             <h2 className="user-checkout-text-head">Tóm tắt đơn hàng</h2>
-            <OrderSummary isMobile total={total} />
+            <OrderSummary
+              isMobile
+              total={total}
+              discountedTotal={discountedTotal}
+            />
           </div>
         </form>
       </div>
@@ -505,7 +613,7 @@ const BuyNow = () => {
                   </div>
                   <div className="user-cart-item-brand gift">
                     {itemBuyNow.selectedGift?.attribute_values
-                      .map((attr) => `${attr.attribute_id}: ${attr.id}`)
+                      ?.map((attr) => `${attr.attribute_id}: ${attr.id}`)
                       .join(", ")}
                   </div>
                   <div className="user-cart-item-price">0₫</div>
@@ -522,14 +630,13 @@ const BuyNow = () => {
         </div>
         <div className="user-checkout-shadow-container">
           <h2 className="user-checkout-text-head">Tóm tắt đơn hàng</h2>
-          <OrderSummary total={total} />
+          <OrderSummary total={total} discountedTotal={discountedTotal} />
           <div className="user-checkout-place-order">
             <button
               className="user-checkout-place-order-button"
               type="submit"
               form="hara_checkout_form"
-              disabled={loading}
-            >
+              disabled={loading}>
               {loading ? "Đang xử lý..." : "Đặt hàng"}
             </button>
           </div>
@@ -549,6 +656,14 @@ const BuyNow = () => {
         isOpen={isModalAddOpen}
         onClose={() => setIsModalAddOpen(false)}
         onSave={handleSubmitAddress}
+      />
+      <VoucherSelector
+        open={isVoucherModalOpen}
+        onClose={handleCloseVoucherModal}
+        vouchers={voucher}
+        onSelectVoucher={handleSelectVoucher}
+        selectedVoucher={selectedVoucher}
+        totalOrderAmount={total}
       />
     </div>
   );

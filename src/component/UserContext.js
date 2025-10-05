@@ -7,6 +7,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [voucher, setVoucher] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Lấy role trực tiếp ở đây
@@ -25,7 +26,9 @@ export const UserProvider = ({ children }) => {
     if (role === "USER") {
       try {
         const res = await api.get("/user/logged");
+        const res2 = await api.get("/voucher/user");
         setUser(res.data.result); // gộp role vào user luôn
+        setVoucher(res2.data.result);
       } catch (err) {
         console.error("Lỗi lấy thông tin người dùng:", err);
       } finally {
@@ -43,7 +46,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, fetchUser, loading }}>
+    <UserContext.Provider value={{ user, setUser, voucher, setVoucher, fetchUser, loading }}>
       {children}
     </UserContext.Provider>
   );

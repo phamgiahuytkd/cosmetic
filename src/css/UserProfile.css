@@ -1,130 +1,310 @@
 .user-profile-container {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  justify-content: center;
   width: 90%;
-}
-
-@media (max-width: 812px) {
-  .user-profile-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
-
-
-.user-profile-title {
-  font-size: x-large;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  color: #000000;
-}
-
-.user-profile-detail{
-  padding: 2rem;
-  border-radius: 0.5rem;
-  border: 2px solid #b8b8b8;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin: 0 auto;
+  background-color: #ffffff;
   position: relative;
 }
 
-.user-profile-detail button{
-  padding: 0.3rem;
+.user-profile-error-message {
+  padding: 1rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* .user-profile-content {
+  max-width: 1200px;
+  margin: 0 auto;
+} */
+
+.user-profile-title {
+  font-size: x-large;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: black;
+}
+
+.user-profile-form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+.user-profile-form-img {
+  flex: 1;
+  max-width: 300px;
+}
+
+.user-profile-avatar-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  /* Tỷ lệ 1:1 */
+  overflow: hidden;
+}
+
+.user-profile-avatar {
   position: absolute;
-  top: 0.5rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100%;
+  /* border: 2px solid #ddd; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-edit-avatar-button {
+  position: absolute;
+  bottom: 0.5rem;
   right: 0.5rem;
-  font-size: x-small;
-  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.2rem;
+  border: none;
+  background: linear-gradient(135deg, #6b48ff, #00b4d8);
+  color: white;
+  border-radius: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  background: linear-gradient(135deg, #9dc3ff, rgb(0, 128, 179));
-  transition: box-shadow 0.3s ease, background-color 0.3s ease;
-  color: white;
-  border-radius: 0.2rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.user-profile-edit-avatar-button:hover {
+  background: #ffffff;
+  color: #00b4d8;
+  transform: scale(1.1);
+}
+
+.user-profile-edit-avatar-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.user-profile-edit-avatar-button>svg {
+  font-size: 0.9rem;
 }
 
 
-.user-profile-detail button:hover{
-  background: white;
-  color: rgb(48, 196, 255);
-  box-shadow: 0 0 0 6px rgba(48, 196, 255, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
-}
-
-
-
-.user-profile-detail button > svg{
-  font-size: small;
-  vertical-align: text-bottom;
-  margin-left: 0.3rem;
-}
-
-
-
-.user-profile-field {
+.user-profile-form {
+  flex: 2;
   display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.user-profile-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: #eee 1px solid;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .user-profile-label {
-  width: 6.5rem;
-  font-weight: 550;
-  font-size: medium;
-  color: #005b99;
-  display: flex;
-  justify-content: space-between;
-  margin-right: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
 }
 
-.user-profile-value {
-  color: #222;
-  font-weight: 400;
-  font-size: large;
-}
-
-
-
-.user-profile-right{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.user-profile-avatar{
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #eaeaea;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-}
-
-.user-profile-right button{
+.user-profile-input {
   padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  color: #5b5b5b;
+}
+
+.user-profile-input:disabled {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+.user-profile-error {
+  color: #dc3545;
+  font-size: 0.9rem;
+}
+
+.user-profile-form-actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.user-profile-save-button {
+  padding: 0.75rem 1.5rem;
   border-radius: 0.3rem;
   border: none;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-  color: white;
-  background: linear-gradient(135deg, pink, #fa5f9d);
-  font-size: medium;
+  font-size: 1rem;
   font-weight: 500;
-  transition: box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
-  display: inline-flex;
+  background: linear-gradient(135deg, #ff7eb3, #ff4b91);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-save-button:hover {
+  background: linear-gradient(135deg, #ff9cc7, #ff6b9f);
+}
+
+.user-profile-save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.user-profile-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .user-profile-form-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .user-profile-form-img {
+    max-width: 200px;
+  }
+
+  .user-profile-form {
+    width: 100%;
+  }
+
+}
+
+
+/* ==========================
+   💧 THANH UY TÍN NGƯỜI DÙNG — pastel water flow (vivid)
+   ========================== */
+.user-profile-reputation-container {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Tiêu đề UY TÍN */
+.user-profile-reputation-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  color: #2f2f2f;
 }
 
-.user-profile-right button:hover {
-  background: white;
-  color: #ff6ca7;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 6px rgba(255, 192, 203, 0.3), inset 0 0 2px rgba(0, 0, 0, 0.3);
+/* Thanh nền */
+.user-profile-reputation-bar {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fcfcfc, #e4e4e4);
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.07),
+    0 1px 6px rgba(0, 0, 0, 0.12);
 }
 
-.user-profile-right button svg{
-  font-size: large;
-  margin-left: 0.4rem;
-  margin-bottom: 0.2rem;
+/* Thanh tiến trình chính */
+.user-profile-reputation-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 999px;
+  background-size: 600% 100%;
+  animation: waterFlow 20s linear infinite;
+  transition: width 0.6s ease-in-out;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.15));
+}
+
+/* Uy tín thấp */
+.user-profile-reputation-progress.low {
+  background-image: linear-gradient(90deg,
+      #9ef0e9,
+      #6ee7df,
+      #f7b8d7,
+      #6ee7df,
+      #9ef0e9);
+}
+
+/* Uy tín trung bình */
+.user-profile-reputation-progress.medium {
+  background-image: linear-gradient(90deg,
+      #79e3db,
+      #f8c2eb,
+      #c2f2ff,
+      #79e3db,
+      #f8c2eb);
+}
+
+/* Uy tín cao */
+.user-profile-reputation-progress.high {
+  background-image: linear-gradient(90deg,
+      #b2fff0,
+      #ffd6f1,
+      #7ee9df,
+      #f3c4ff,
+      #b2fff0);
+  box-shadow:
+    0 0 14px rgba(255, 192, 203, 0.45),
+    0 0 10px rgba(126, 233, 223, 0.45);
+}
+
+/* 🌊 Hiệu ứng chảy mềm mượt */
+@keyframes waterFlow {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: 600% 0;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .user-profile-reputation-container {
+    gap: 0.4rem;
+  }
+
+  .user-profile-reputation-bar {
+    height: 14px;
+  }
+
+  .user-profile-reputation-header {
+    font-size: 0.95rem;
+  }
 }

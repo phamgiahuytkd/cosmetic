@@ -24,6 +24,7 @@ import api from "../service/api";
 import { getImageUrl, redirectTo } from "../component/commonFunc";
 import ProductCard from "../component/ProductCard";
 import NavigationButton from "../component/NavigationButton";
+import { useUser } from "../component/UserContext";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ export default function Home() {
   const newNextRef = useRef(null);
   const topDiscountPrevRef = useRef(null);
   const topDiscountNextRef = useRef(null);
+  const { user } = useUser();
 
   useEffect(() => {
     api
@@ -382,7 +384,7 @@ export default function Home() {
         </div>
       )}
 
-      <UserHomePromo></UserHomePromo>
+      {user && <UserHomePromo></UserHomePromo>}
 
       <UserHomeAbout></UserHomeAbout>
     </div>

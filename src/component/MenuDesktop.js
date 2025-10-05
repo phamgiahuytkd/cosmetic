@@ -93,7 +93,11 @@ const MenuDesktop = ({ setOpenModal }) => {
                     <h4>
                       <p>{user?.full_name}</p>{" "}
                       <img
-                        src={user?.avatar ? getImageUrl(user?.avatar) : "/image/default-avatar-profile.jpg"}
+                        src={
+                          user?.avatar
+                            ? getImageUrl(user?.avatar)
+                            : "/image/default-avatar-profile.jpg"
+                        }
                         alt={user?.full_name}
                       />
                     </h4>
@@ -158,7 +162,11 @@ const MenuDesktop = ({ setOpenModal }) => {
                 {categories.map((category) => (
                   <li key={category.id}>
                     <Link to={`/product?category=${category.id}`}>
-                      {category.name}
+                      <img
+                        src={getImageUrl(category?.image)}
+                        alt={category.id}
+                      />
+                      <p>{category.name}</p>
                     </Link>
                   </li>
                 ))}
@@ -174,7 +182,10 @@ const MenuDesktop = ({ setOpenModal }) => {
               <div>
                 {brands.map((brand) => (
                   <li key={brand.id}>
-                    <Link to={`/product?brand=${brand.id}`}>{brand.name}</Link>
+                    <Link to={`/product?brand=${brand.id}`}>
+                      <img src={getImageUrl(brand?.image)} alt={brand.id} />
+                      <p>{brand.name}</p>
+                    </Link>
                   </li>
                 ))}
               </div>

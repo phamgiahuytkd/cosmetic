@@ -304,17 +304,22 @@
 .user-menu-mobile-submenu {
   padding-left: 1rem;
   margin-top: 0.5rem;
+  max-height: calc(6 * 1.5rem);
+    /* ~6 hàng */
+  overflow-y: auto;
 }
 
 .user-menu-mobile-submenu li {
   padding: 0.25rem 0;
+  list-style: none;
 }
 
 .user-menu-mobile-submenu li a {
-  color: #fa5f9d;
+  color: #63C8FF;
   text-decoration: none;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .user-menu-mobile-submenu li:hover a {
-  color: #a80546;
+  color: #4DA8DA;
 }

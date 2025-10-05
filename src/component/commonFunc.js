@@ -13,7 +13,7 @@ export const getImageUrl = (imageName) => {
     return imageName; // Trả về URL nguyên vẹn nếu đã là URL
   }
   // Nếu không, thêm base URL
-  return `https://icommerce-production.up.railway.app/iCommerce/images/${imageName}`;
+  return `http://localhost:8080/iCommerce/images/${imageName}`;
 };
 
 // hàm chuyển tiền
@@ -38,7 +38,7 @@ export const formatDateTimeVN = (inputDate) => {
     day: "2-digit",
   });
 
-  return `${timePart} - ${datePart}`;
+  return `${timePart}  ${datePart}`;
 };
 
 //hàm in hoa hết chữ
@@ -148,7 +148,7 @@ export const handleAddToCart = (
     }
   } catch (e) {
     localStorage.removeItem("token");
-    toast.error("Lỗi thêm sản phẩm vào giỏ hàng!");
+    toast.error("Lỗi thêm sản phẩm vào giỏ hàng1!");
   }
 
   if (role === "USER" || role === "ADMIN") {
@@ -175,7 +175,7 @@ export const handleAddToCart = (
                 .post("/cart", {
                   product_variant_id: response.data.result[0].id,
                   quantity: 1,
-                  selected_gift_id: gift?.[0].id || null,
+                  selected_gift_id: gift?.[0]?.id || null,
                 })
                 .then(() => {
                   toast.success("🛒 Đã thêm sản phẩm vào giỏ hàng!");

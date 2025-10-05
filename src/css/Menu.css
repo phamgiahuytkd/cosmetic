@@ -101,26 +101,31 @@
 
 
 .menu-user-list ul {
-  width: max-content;
-  min-width: 100%;
+  width: 90vw;
   opacity: 0;
   padding-top: 2.5rem;
   transform: translateY(-10px);
   pointer-events: none;
   transition: all 0.3s ease;
-  position: absolute;
-  top: -0.4rem;
-  left: -1rem;
+  position: fixed;
+  top: 4.1rem;
+  left: 5vw;
   flex-direction: column;
   border-radius: 0.2rem;
   background-color: rgba(255, 255, 255, 0);
   text-align: center;
   z-index: 100;
-  
 }
 
 .menu-user-list ul div{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  justify-content: center;
+  background: white;
+  gap: 2rem;
+  padding: 1rem;
 }
 
 .menu-user-list li:hover ul {
@@ -132,15 +137,14 @@
 
 /* Thẻ li con - không bo góc */
 .menu-user-list  ul li {
+  flex: 0 0 auto;
   list-style: none;
-  line-height: 2.5rem;
-  background-color: rgba(255, 255, 255, 1);
   text-align: left;
   justify-content: left;
-  padding: 0 1.5rem;
-  border-bottom: 1px solid #cccccc69;
-  
+  /* border-bottom: 1px solid #cccccc; */
+  /* white-space: nowrap; */
   /* Không bo góc ở đây */
+  width: 12rem;
 }
 
 
@@ -151,10 +155,24 @@
 .menu-user-list  ul li a {
   text-decoration: none;
   color: #000000;
+  display: flex;
 }
 
+.menu-user-list ul li a img {
+  width: 4rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+  border-radius: 0.2rem;
+}
 
-  
+.menu-user-list ul li a p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.3rem;
+}
 
 
   .menu-user-tool{

@@ -341,12 +341,23 @@
 .user-checkout-coupon-discount {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   padding: 4px 12px;
+  padding-right: 0px;
   background: #e1f3fe;
   border-radius: 8px;
   font-size: 14px;
   color: #075783;
+  /* justify-content: space-between; */
+}
+
+.user-checkout-coupon-discount button{
+  margin-left: auto;
+  background-color: none;
+}
+
+.user-checkout-coupon-discount button:hover {
+  background-color: none;
 }
 
 .user-checkout-coupon-button-arrow {
@@ -516,6 +527,10 @@
   display: flex;
   justify-content: space-between;
   font-size: 16px;
+}
+
+.user-checkout-order-summary-row.promo{
+  color: #fa5f9d;
 }
 
 .user-checkout-order-summary-total {
