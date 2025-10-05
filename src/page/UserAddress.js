@@ -126,9 +126,15 @@ const UserAddress = () => {
 
   const handleSetDefaultAddress = (id) => {
     api
-      .put(`/user`, {
-        default_shipping_address: id,
-      })
+      .put(
+        `/user`,
+        {
+          default_shipping_address: id,
+        },
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
       .then(() => {
         fetchUser();
         // Swal.fire({
@@ -149,8 +155,6 @@ const UserAddress = () => {
         });
       });
   };
-
-
 
   return (
     <div className="user-address-container">
