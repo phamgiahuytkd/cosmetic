@@ -18,11 +18,11 @@ function Login2() {
   const [birthdate, setBirthdate] = useState("");
   const [showBirthdayModal, setShowBirthdayModal] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const calendarRef = useRef();
-  const [errors, setErrors] = useState({});
 
-  // Hàm kiểm tra định dạng và hợp lệ ngày sinh
+  // ✅ Hàm kiểm tra định dạng và hợp lệ ngày sinh
   const validateDateFormat = (dateStr) => {
     if (!dateStr || typeof dateStr !== "string") {
       return "Vui lòng nhập ngày sinh.";
@@ -37,12 +37,13 @@ function Login2() {
     const date = new Date(year, month - 1, day);
     const today = new Date();
     const todayStr = today.toLocaleDateString("vi-VN");
+
     if (
       isNaN(date.getTime()) ||
       date.getDate() !== day ||
       date.getMonth() !== month - 1 ||
       date.getFullYear() !== year ||
-      date > new Date()
+      date > today
     ) {
       return `Ngày sinh phải nhỏ hơn hoặc bằng (${todayStr}).`;
     }
@@ -50,6 +51,7 @@ function Login2() {
     return "";
   };
 
+  // ✅ Đăng nhập thường
   const handleLogin = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
@@ -78,20 +80,40 @@ function Login2() {
       });
   };
 
+  // ✅ Đăng nhập mạng xã hội (Google / Facebook)
   const handleSocialLogin = async (data, provider) => {
-    const payload = {
-      email: data.email,
-      full_name: data.name,
-      avatar: provider === "google" ? data.picture : data.picture.data.url,
-    };
-
-    const endpoint =
-      provider === "google" ? "/auth/google-login" : "/auth/facebook-login";
-
     try {
-      const res = await api.post(endpoint, payload);
-      console.log(payload);
+      let userData = {};
+
+      if (provider === "google") {
+        // 👉 Fix lỗi email null — gọi Google API để lấy thông tin user
+        const res = await fetch(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: { Authorization: `Bearer ${data.access_token}` },
+          }
+        );
+        const userInfo = await res.json();
+
+        userData = {
+          email: userInfo.email,
+          full_name: userInfo.name,
+          avatar: userInfo.picture,
+        };
+      } else if (provider === "facebook") {
+        userData = {
+          email: data.email,
+          full_name: data.name,
+          avatar: data.picture?.data?.url,
+        };
+      }
+
+      const endpoint =
+        provider === "google" ? "/auth/google-login" : "/auth/facebook-login";
+
+      const res = await api.post(endpoint, userData);
       localStorage.setItem("token", res.data.result.token);
+
       Swal.fire({
         title: "Thành công",
         text: "Đăng nhập thành công!",
@@ -99,11 +121,14 @@ function Login2() {
         timer: 2500,
         showConfirmButton: false,
       });
+
       navigate("/");
     } catch (err) {
+      console.error("Lỗi social login:", err);
       const errorCode = err.response?.data?.code;
+
       if (errorCode === 1001) {
-        setUserInfo({ ...payload, provider });
+        setUserInfo({ ...data, provider });
         setShowBirthdayModal(true);
       } else {
         Swal.fire({
@@ -117,19 +142,20 @@ function Login2() {
     }
   };
 
+  // ✅ Gửi ngày sinh khi tài khoản mạng xã hội mới
   const handleSubmitBirthday = async () => {
-    // Kiểm tra tính hợp lệ của ngày sinh
     const error = validateDateFormat(birthdate);
     if (error) {
+      setErrors((prev) => ({ ...prev, dob: error }));
       return;
     }
 
     try {
-      // Tạo tài khoản mới
       const endpoint =
         userInfo.provider === "google"
           ? "/auth/google-login"
           : "/auth/facebook-login";
+
       const res = await api.post(endpoint, {
         email: userInfo.email,
         full_name: userInfo.full_name,
@@ -190,13 +216,11 @@ function Login2() {
 
             <div className="password-row">
               <label>Mật khẩu</label>
-              <Link
-                href="#"
-                className="forgot-link"
-                to={"/auth/reset-password"}>
+              <Link to="/auth/reset-password" className="forgot-link">
                 Quên mật khẩu?
               </Link>
             </div>
+
             <input
               type="password"
               placeholder="********"
@@ -204,20 +228,20 @@ function Login2() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <div>
-              <button className="login-btn" type="submit">
-                ĐĂNG NHẬP
-              </button>
-            </div>
+
+            <button className="login-btn" type="submit">
+              ĐĂNG NHẬP
+            </button>
           </form>
 
           <p className="or-text">Hoặc tiếp tục với</p>
 
           <div className="social-buttons">
+            {/* ✅ GOOGLE LOGIN FIXED */}
             <LoginSocialGoogle
               client_id="867431480190-njl7ekq78at7cjosjmfrpkktp78njnqg.apps.googleusercontent.com"
-              onResolve={({ data }) => handleSocialLogin(data, "google")}
               scope="email profile openid"
+              onResolve={({ data }) => handleSocialLogin(data, "google")}
               onReject={(err) => {
                 console.error("Đăng nhập Google thất bại:", err);
                 Swal.fire({
@@ -240,6 +264,7 @@ function Login2() {
               </GoogleLoginButton>
             </LoginSocialGoogle>
 
+            {/* ✅ FACEBOOK LOGIN */}
             <LoginSocialFacebook
               appId="23932394653047054"
               scope="email,public_profile"
@@ -280,6 +305,7 @@ function Login2() {
         </div>
       </div>
 
+      {/* Modal nhập ngày sinh */}
       <Modal
         isOpen={showBirthdayModal}
         onRequestClose={() => setShowBirthdayModal(false)}
