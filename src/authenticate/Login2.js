@@ -90,6 +90,7 @@ function Login2() {
 
     try {
       const res = await api.post(endpoint, payload);
+      console.log(payload);
       localStorage.setItem("token", res.data.result.token);
       Swal.fire({
         title: "Thành công",
@@ -135,7 +136,6 @@ function Login2() {
         avatar: userInfo.avatar,
         day_of_birth: birthdate,
       });
-
 
       localStorage.setItem("token", res.data.result.token);
       Swal.fire({
@@ -217,6 +217,7 @@ function Login2() {
             <LoginSocialGoogle
               client_id="867431480190-njl7ekq78at7cjosjmfrpkktp78njnqg.apps.googleusercontent.com"
               onResolve={({ data }) => handleSocialLogin(data, "google")}
+              scope="email profile openid"
               onReject={(err) => {
                 console.error("Đăng nhập Google thất bại:", err);
                 Swal.fire({
@@ -241,6 +242,8 @@ function Login2() {
 
             <LoginSocialFacebook
               appId="23932394653047054"
+              scope="email,public_profile"
+              fields="name,email,picture"
               onResolve={({ data }) => handleSocialLogin(data, "facebook")}
               onReject={(err) => {
                 console.error("Đăng nhập Facebook thất bại:", err);
