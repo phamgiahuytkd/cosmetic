@@ -406,7 +406,7 @@ const ProductDetail = () => {
                   <img
                     src={
                       getImageUrl(
-                        brands.find((c) => c.id === product?.brand_id)?.image
+                        brands.find((c) => c.name === product?.brand)?.image
                       ) || "/image/1 (2).png"
                     }
                     alt="brand"
@@ -420,7 +420,7 @@ const ProductDetail = () => {
                   <img
                     src={
                       getImageUrl(
-                        categories.find((c) => c.id === product?.category_id)
+                        categories.find((c) => c.name === product?.category)
                           ?.image
                       ) || "/image/1 (2).png"
                     }
