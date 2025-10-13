@@ -266,7 +266,7 @@ const Checkout = () => {
         return;
       }
 
-      if (!formData.fulladdress.trim()) {
+      if (!formData.fulladdress?.trim()) {
         toast.error("Địa chỉ không được để trống!");
         setLoading(false);
         return;
@@ -278,7 +278,7 @@ const Checkout = () => {
         return;
       }
 
-      if (formData.voucher_id.trim() && user.reputation < 100) {
+      if (formData.voucher_id?.trim() && user.reputation < 100) {
         toast.error("Bạn không thể dùng mã khi uy tín dưới 100!");
         setLoading(false);
         return;
