@@ -24,6 +24,7 @@ import {
   getImageUrl,
   handleAddToLove,
   handleRemoveToLove,
+  RequireLoginAlert,
 } from "../component/commonFunc";
 import { IoIosDocument } from "react-icons/io";
 import { MdWarehouse } from "react-icons/md";
@@ -40,6 +41,8 @@ import ProductDescription from "../component/ProductDescription";
 import ProductFeatures from "../component/ProductFeatures";
 import ProductReview from "../component/ProductReview";
 import GroupProductSlider from "../component/GroupProductSlider";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -203,46 +206,62 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = (isBuyNow) => {
-    const selectedGift = gifts?.[selectedGiftIndex]; // Lấy quà tặng được chọn
-    if (isBuyNow) {
-      const product_variant = matchedVariant;
-      const data = { ...product, product_variant, quantity, selectedGift }; // Thêm quà tặng vào data
-      sessionStorage.setItem("buyNowData", JSON.stringify(data));
-      navigate("/buynow");
-    } else {
-      api
-        .post("/cart", {
-          product_variant_id: matchedVariant.id,
-          quantity: quantity,
-          selected_gift_id: selectedGift?.id || null, // Gửi gift_id nếu API yêu cầu
-        })
-        .then(() => {
-          fetchCart();
-          Swal.fire({
-            icon: "success",
-            title: "Thành công!",
-            text: "Sản phẩm đã được thêm vào giỏ hàng.",
-            showConfirmButton: false,
-            timer: 1000,
+    const token = localStorage.getItem("token");
+    let role = null;
+    try {
+      if (token && token !== undefined) {
+        const decodedToken = jwtDecode(token);
+        role = decodedToken.scope;
+      }
+    } catch (e) {
+      localStorage.removeItem("token");
+      toast.error("Lỗi thêm sản phẩm vào giỏ hàng1!");
+    }
+
+    if (role === "USER" || role === "ADMIN") {
+      const selectedGift = gifts?.[selectedGiftIndex]; // Lấy quà tặng được chọn
+      if (isBuyNow) {
+        const product_variant = matchedVariant;
+        const data = { ...product, product_variant, quantity, selectedGift }; // Thêm quà tặng vào data
+        sessionStorage.setItem("buyNowData", JSON.stringify(data));
+        navigate("/buynow");
+      } else {
+        api
+          .post("/cart", {
+            product_variant_id: matchedVariant.id,
+            quantity: quantity,
+            selected_gift_id: selectedGift?.id || null, // Gửi gift_id nếu API yêu cầu
+          })
+          .then(() => {
+            fetchCart();
+            Swal.fire({
+              icon: "success",
+              title: "Thành công!",
+              text: "Sản phẩm đã được thêm vào giỏ hàng.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          })
+          .catch((err) => {
+            if (err.response?.data.code === 3012) {
+              Swal.fire({
+                icon: "warning",
+                title: "Không đủ số lượng!",
+                text: "Số lượng sản phẩm trong kho không đủ để thêm vào giỏ hàng.",
+                confirmButtonText: "Đồng ý",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Lỗi!",
+                text: "Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
+                confirmButtonText: "Đóng",
+              });
+            }
           });
-        })
-        .catch((err) => {
-          if (err.response?.data.code === 3012) {
-            Swal.fire({
-              icon: "warning",
-              title: "Không đủ số lượng!",
-              text: "Số lượng sản phẩm trong kho không đủ để thêm vào giỏ hàng.",
-              confirmButtonText: "Đồng ý",
-            });
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Lỗi!",
-              text: "Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
-              confirmButtonText: "Đóng",
-            });
-          }
-        });
+      }
+    } else {
+      RequireLoginAlert(navigate);
     }
   };
 
