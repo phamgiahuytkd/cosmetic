@@ -17,7 +17,7 @@ import { FavoriteProvider } from "./component/FavoriteContext";
 import { BrandCategoryProvider } from "./component/BrandCategoryContext";
 import { AddAndBuyNowModalProvider } from "./component/AddAndBuyNowModalContext";
 import ResetPassword from "./page/ResetPassword";
-
+import { WebSocketProvider } from "./component/WebSocketContext";
 
 function AppWrapper() {
   const location = useLocation();
@@ -35,11 +35,13 @@ function AppWrapper() {
 
   const token = localStorage.getItem("token");
   let role = null;
+  let userId = null;
 
   try {
     if (token && token !== undefined) {
       const decodedToken = jwtDecode(token);
       role = decodedToken.scope;
+      userId = decodedToken.sub;
     }
   } catch (e) {
     console.error("Invalid token");
@@ -51,17 +53,19 @@ function AppWrapper() {
       {role === "ADMIN" ? (
         <MenuAdmin />
       ) : (
-        <BrandCategoryProvider>
-          <UserProvider>
-            <CartProvider>
-              <FavoriteProvider>
-                <AddAndBuyNowModalProvider>
-                  <Menu />
-                </AddAndBuyNowModalProvider>
-              </FavoriteProvider>
-            </CartProvider>
-          </UserProvider>
-        </BrandCategoryProvider>
+        <WebSocketProvider userId={userId}>
+          <BrandCategoryProvider>
+            <UserProvider>
+              <CartProvider>
+                <FavoriteProvider>
+                  <AddAndBuyNowModalProvider>
+                    <Menu />
+                  </AddAndBuyNowModalProvider>
+                </FavoriteProvider>
+              </CartProvider>
+            </UserProvider>
+          </BrandCategoryProvider>
+        </WebSocketProvider>
       )}
     </div>
   );
@@ -69,13 +73,11 @@ function AppWrapper() {
 
 function App() {
   return (
-   
-      <Router>
-        <Routes>
-          <Route path="/*" element={<AppWrapper />} />
-        </Routes>
-      </Router>
-
+    <Router>
+      <Routes>
+        <Route path="/*" element={<AppWrapper />} />
+      </Routes>
+    </Router>
   );
 }
 
