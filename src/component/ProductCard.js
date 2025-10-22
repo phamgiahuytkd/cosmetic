@@ -27,10 +27,11 @@ const ProductCard = ({ product, isLoved = false }) => {
   const { setOpenAddAndBuyNowModal, setAddAndBuyNowProduct } =
     useAddAndBuyNowModal();
 
-
   return (
     <div
-      className="user-product-card"
+      className={`user-product-card ${
+        product.stop === true ? "stop-card-product" : ""
+      }`}
       onClick={() => navigate(`/product-detail/${product.id}`)}>
       {product.percent !== null && (
         <span className="user-product-card-discount">-{product.percent}%</span>
@@ -50,18 +51,21 @@ const ProductCard = ({ product, isLoved = false }) => {
         </div>
       )}
 
-      <button
-        className={`user-product-card-love ${favoriteIdSet.has(product.id) ? "user-product-card-is-favorite" : ""
+      {product.stop === false && (
+        <button
+          className={`user-product-card-love ${
+            favoriteIdSet.has(product.id) ? "user-product-card-is-favorite" : ""
           }`}
-        onClick={(e) => {
-          if (isLoved) {
-            handleRemoveToLove(e, product, fetchFavorites, navigate);
-          } else {
-            handleAddToLove(e, product, fetchFavorites, navigate);
-          }
-        }}>
-        <GiClover />
-      </button>
+          onClick={(e) => {
+            if (isLoved) {
+              handleRemoveToLove(e, product, fetchFavorites, navigate);
+            } else {
+              handleAddToLove(e, product, fetchFavorites, navigate);
+            }
+          }}>
+          <GiClover />
+        </button>
+      )}
 
       <div className="user-product-card-image">
         <img src={getImageUrl(product.image)} alt={product.name} />
@@ -126,37 +130,41 @@ const ProductCard = ({ product, isLoved = false }) => {
           </div>
         </div>
 
-        <div className="user-product-card-buy">
-          <button
-            className="user-product-card-buy-cart"
-            onClick={(e) =>
-              handleAddToCart(
-                e,
-                product,
-                fetchCart,
-                navigate,
-                setOpenAddAndBuyNowModal,
-                setAddAndBuyNowProduct
-              )
-            }>
-            <IoBagAdd />
-          </button>
-          <button
-            className="user-product-card-buy-now"
-            onClick={(e) =>
-              setBuyNow(
-                e,
-                product,
-                1,
-                navigate,
-                setOpenAddAndBuyNowModal,
-                setAddAndBuyNowProduct,
-                setOpenLoveModal
-              )
-            }>
-            Mua ngay
-          </button>
-        </div>
+        {product.stop === false ? (
+          <div className="user-product-card-buy">
+            <button
+              className="user-product-card-buy-cart"
+              onClick={(e) =>
+                handleAddToCart(
+                  e,
+                  product,
+                  fetchCart,
+                  navigate,
+                  setOpenAddAndBuyNowModal,
+                  setAddAndBuyNowProduct
+                )
+              }>
+              <IoBagAdd />
+            </button>
+            <button
+              className="user-product-card-buy-now"
+              onClick={(e) =>
+                setBuyNow(
+                  e,
+                  product,
+                  1,
+                  navigate,
+                  setOpenAddAndBuyNowModal,
+                  setAddAndBuyNowProduct,
+                  setOpenLoveModal
+                )
+              }>
+              Mua ngay
+            </button>
+          </div>
+        ) : (
+          <div className="user-product-card-buy-stop">Dừng bán</div>
+        )}
       </div>
     </div>
   );

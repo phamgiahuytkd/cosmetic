@@ -1,6 +1,5 @@
-
 /* ///////product card///// */
-.user-product-card{
+.user-product-card {
   background-color: white;
   position: relative;
   height: 28rem;
@@ -17,13 +16,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.user-product-card:hover{
+.user-product-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transform: translateY(-3px);
 
 }
 
-.user-product-card-discount{
+.user-product-card-discount {
   position: absolute;
   padding: 0.3rem 0.3rem;
   background: linear-gradient(135deg, #ff9191, rgb(255, 0, 0));
@@ -34,7 +33,7 @@
 
 }
 
-.user-product-card-love{
+.user-product-card-love {
   position: absolute;
   padding: 0.2rem 0.3rem;
   background-color: #f7adba;
@@ -49,46 +48,46 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.user-product-card-love:hover{
+.user-product-card-love:hover {
   background-color: #0095b3a6;
 }
 
 
-.user-product-card-image{
+.user-product-card-image {
   height: 15rem;
   width: 100%;
 }
 
 
-.user-product-card-image > img {
+.user-product-card-image>img {
   width: 100%;
   height: 15rem;
   object-fit: cover;
   /* Đảm bảo ảnh không méo, giữ tỷ lệ và lấp đầy khung */
 }
 
-.user-product-card-view{
+.user-product-card-view {
   height: 100%;
   width: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr;
 }
 
-.user-product-card-info{
+.user-product-card-info {
   display: grid;
   grid-template-rows: 1.5fr 1.5fr 2fr 3fr;
 }
 
-.user-product-card-info > h4{
+.user-product-card-info>h4 {
   font-weight: 600;
   line-height: 1.2;
   font-size: medium;
-    display: -webkit-box;
-      -webkit-line-clamp: 1;
-      /* 👈 Giới hạn 2 dòng */
-      -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* 👈 Giới hạn 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-product-card-info>h5 {
@@ -101,10 +100,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  color:#9a9a9a;
+  color: #9a9a9a;
 }
 
-.user-product-card-price{
+.user-product-card-price {
   display: flex;
   justify-content: space-between;
   font-weight: 500;
@@ -112,30 +111,30 @@
   align-items: center;
 }
 
-.user-product-card-price-number{
+.user-product-card-price-number {
   display: flex;
   flex-direction: column;
 }
 
 
-.user-product-card-price-discount{
+.user-product-card-price-discount {
   font-weight: bold;
   font-size: medium;
 }
 
-.user-product-card-price-ogirin{
+.user-product-card-price-ogirin {
   color: #9a9a9a;
   text-decoration: line-through;
   font-weight: 500;
 }
 
-.user-product-card-new{
+.user-product-card-new {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.user-product-card-new > span{
+.user-product-card-new>span {
   background-color: red;
   color: white;
   font-weight: bold;
@@ -148,14 +147,14 @@
 
 
 
-.user-product-card-buy{
+.user-product-card-buy {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
 }
 
-.user-product-card-buy > button{
+.user-product-card-buy>button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -191,7 +190,7 @@
 
 
 
-.user-product-card-buy-now{
+.user-product-card-buy-now {
   font-size: larger;
   padding: 0.6rem;
   font-weight: 500;
@@ -214,20 +213,20 @@
 }
 
 
-.user-product-card-is-favorite{
+.user-product-card-is-favorite {
   background-color: rgb(254, 67, 67) !important;
 }
 
 
 
-.user-product-card-rating{
+.user-product-card-rating {
   display: grid;
   grid-template-columns: 5fr 3fr;
   justify-content: space-between;
   align-items: center;
 }
 
-.user-product-card-rating-score{
+.user-product-card-rating-score {
   font-size: small;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -241,7 +240,7 @@
 
 
 
-.user-product-card-rating-score span{
+.user-product-card-rating-score span {
   width: 100%;
   height: 100%;
   display: flex;
@@ -249,11 +248,11 @@
   justify-content: center;
   text-align: center;
   color: #777777;
-  
-  
+
+
 }
 
-.user-product-card-rating-score div{
+.user-product-card-rating-score div {
   width: 100%;
   height: 100%;
   display: grid;
@@ -261,7 +260,7 @@
   align-items: center;
 }
 
-.user-product-card-rating-score span:first-child{
+.user-product-card-rating-score span:first-child {
   background-color: #777777;
   color: white;
 }
@@ -284,7 +283,7 @@
 
 }
 
-.user-product-card-gift div{
+.user-product-card-gift div {
   height: 100%;
   width: 100%;
   padding: 0.2rem;
@@ -292,7 +291,7 @@
   overflow: hidden;
 }
 
-.user-product-card-gift img{
+.user-product-card-gift img {
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -314,4 +313,58 @@
   line-height: 1.2rem;
   max-height: 2.4rem;
   /* 1.2rem * 3 dòng */
+}
+
+
+
+
+
+
+/* STOP SALE PRODUCT */
+.stop-card-product {
+  opacity: 0.5;
+}
+
+.stop-product-hidden {
+  display: none;
+}
+
+.user-product-card-buy-stop {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  font-weight: bold;
+  color: #163d7d;
+}
+
+.stop-product-title {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+  font-weight: 650;
+  text-align: center;
+  color: #ff3d3d;
+}
+
+
+.notification-badge-overview {
+  position: absolute;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  top: -110%;
+  right: -35%;
+  /* 👈 nâng badge cao hơn một chút */
 }

@@ -1,5 +1,5 @@
 // components/UserOrderCard.js
-import React from "react";
+import React, { useMemo } from "react";
 import OrderStatusTag from "./OrderStatusTag";
 import "../css/OrderCard.css";
 import { HiDocumentCurrencyDollar, HiMiniMapPin } from "react-icons/hi2";
@@ -11,13 +11,42 @@ import {
 import { LuMapPinHouse } from "react-icons/lu";
 import { formatDateTimeVN, formatPrice } from "./commonFunc";
 import { useNavigate } from "react-router-dom";
+import { useNotifications } from "./NotificationContext";
+import { MdNotificationsActive } from "react-icons/md";
+import api from "../service/api";
 
 const OrderCard = ({ order, status }) => {
   const navigate = useNavigate();
-  const handleOrderClick = (id) => { 
-    navigate(`/order-detail/${id}`);
-  }
+  const { notifications, fetchNotifications } = useNotifications();
+  const handleOrderClick = async (id) => {
+    try {
+      await api.delete(`/notify/${id}`);
+      fetchNotifications();
+      navigate(`/order-detail/${id}`);
+    } catch (error) {
+      console.error(error.response?.data?.message || "Lỗi khi xử lý thông báo");
+    }
+  };
 
+  // Tạo Map để lưu type_id của các thông báo có type là ORDER
+  const unreadOrderNotifications = useMemo(() => {
+    const orderNotifications = new Map();
+    const allowedStatuses = [
+      "PROCESSING",
+      "DELIVERING",
+      "PENDING",
+      "COMPLETED",
+      "UNCOMPLETED",
+    ];
+
+    notifications
+      .filter((notification) => allowedStatuses.includes(notification.type))
+      .forEach((notification) => {
+        orderNotifications.set(notification.type_id, true);
+      });
+
+    return orderNotifications;
+  }, [notifications]);
 
   return (
     <div
@@ -25,7 +54,12 @@ const OrderCard = ({ order, status }) => {
       onClick={() => handleOrderClick(order.id)}>
       <div className="user-order-card-header">
         <div>
-          <HiDocumentCurrencyDollar />
+          {unreadOrderNotifications.has(order.id) ? (
+            <MdNotificationsActive style={{ color: "#fa5f9d" }} />
+          ) : (
+            <HiDocumentCurrencyDollar />
+          )}
+
           <p>
             <strong>Mã đơn hàng:</strong>
             <span className="user-order-card-header-code">{order?.id}</span>

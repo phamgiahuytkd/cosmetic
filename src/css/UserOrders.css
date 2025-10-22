@@ -103,3 +103,24 @@
   color: #3381ff;
   text-shadow: 0 0 1rem rgb(82, 226, 255);
 }
+
+
+
+
+/* Thêm vào file UserOrders.css */
+.notification-badge {
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  line-height: 20px;
+  vertical-align: top;
+  position: relative;
+  top: -10px;
+  /* 👈 nâng badge cao hơn một chút */
+}

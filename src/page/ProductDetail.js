@@ -455,7 +455,7 @@ const ProductDetail = () => {
                 />
               </div>
 
-              {gifts?.length > 0 && (
+              {gifts?.length > 0 && matchedVariant?.stop_day === null && (
                 <div className="user-product-detail-gift">
                   <h5>Sản phẩm được tặng kèm:</h5>
                   {gifts.map((gift, index) => (
@@ -482,64 +482,74 @@ const ProductDetail = () => {
                 </div>
               )}
 
-              <div className="user-product-detail-button-control">
-                <div className="user-product-add-and-buy-now-variant-quantity-container">
-                  <div>Số lượng:</div>
-                  <div className="user-cart-quantity-control">
-                    <button onClick={handleDecrease}>-</button>
-                    <input
-                      value={quantity}
-                      onChange={handleQuantityChange}
-                      onBlur={() => {
-                        if (!quantity || quantity < 1) {
-                          setQuantity(1);
+              {matchedVariant?.stop_day === null ? (
+                <div className="user-product-detail-button-control">
+                  <div className="user-product-add-and-buy-now-variant-quantity-container">
+                    <div>Số lượng:</div>
+                    <div className="user-cart-quantity-control">
+                      <button onClick={handleDecrease}>-</button>
+                      <input
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        onBlur={() => {
+                          if (!quantity || quantity < 1) {
+                            setQuantity(1);
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          if (!quantity || quantity < 1) {
+                            setQuantity(1);
+                          }
+                        }}
+                      />
+                      <button onClick={handleIncrease}>+</button>
+                    </div>
+                  </div>
+
+                  <div className="user-product-detail-love">
+                    <button
+                      className={`user-product-detail-love-button ${
+                        favoriteIdSet.has(product.id)
+                          ? "user-product-card-is-favorite"
+                          : ""
+                      }`}
+                      onClick={(e) => {
+                        if (isLoved) {
+                          handleRemoveToLove(
+                            e,
+                            product,
+                            fetchFavorites,
+                            navigate
+                          );
+                        } else {
+                          handleAddToLove(e, product, fetchFavorites, navigate);
                         }
-                      }}
-                      onMouseLeave={() => {
-                        if (!quantity || quantity < 1) {
-                          setQuantity(1);
-                        }
-                      }}
-                    />
-                    <button onClick={handleIncrease}>+</button>
+                      }}>
+                      <FaHeart />
+                    </button>
                   </div>
                 </div>
+              ) : (
+                <div className="stop-product-title">
+                  SẢN PHẨM ĐÃ NGỪNG KINH DOANH!
+                </div>
+              )}
 
-                <div className="user-product-detail-love">
+              {matchedVariant?.stop_day === null && (
+                <div className="user-product-detail-add-and-buy-now">
                   <button
-                    className={`user-product-detail-love-button ${
-                      favoriteIdSet.has(product.id)
-                        ? "user-product-card-is-favorite"
-                        : ""
-                    }`}
-                    onClick={(e) => {
-                      if (isLoved) {
-                        handleRemoveToLove(
-                          e,
-                          product,
-                          fetchFavorites,
-                          navigate
-                        );
-                      } else {
-                        handleAddToLove(e, product, fetchFavorites, navigate);
-                      }
-                    }}>
-                    <FaHeart />
+                    className="user-product-detail-add-cart"
+                    onClick={() => handleAddToCart(false)}>
+                    Thêm vào giỏ hàng <TbShoppingBagPlus />
+                  </button>
+                  <button
+                    className="user-product-detail-buy-now"
+                    onClick={() => handleAddToCart(true)}>
+                    Mua ngay <CiMoneyCheck1 />
                   </button>
                 </div>
-              </div>
-              <div className="user-product-detail-add-and-buy-now">
-                <button
-                  className="user-product-detail-add-cart"
-                  onClick={() => handleAddToCart(false)}>
-                  Thêm vào giỏ hàng <TbShoppingBagPlus />
-                </button>
-                <button
-                  className="user-product-detail-buy-now"
-                  onClick={() => handleAddToCart(true)}>
-                  Mua ngay <CiMoneyCheck1 />
-                </button>
-              </div>
+              )}
+
               <div className="user-product-detail-delivery-wrapper">
                 <div className="user-product-detail-delivery-item">
                   <div className="user-product-detail-delivery-icon-box">

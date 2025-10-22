@@ -11,6 +11,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { RiBillLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { getImageUrl, handleLogoutConfirm } from "./commonFunc";
+import { useNotifications } from "./NotificationContext";
 
 const MenuDesktop = ({ setOpenModal }) => {
   const token = localStorage.getItem("token");
@@ -26,6 +27,7 @@ const MenuDesktop = ({ setOpenModal }) => {
   const { user } = useUser();
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+  const { notifications, fetchNotifications } = useNotifications();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -33,6 +35,16 @@ const MenuDesktop = ({ setOpenModal }) => {
       navigate(`/product?search=${encodeURIComponent(keyword.trim())}`);
     }
   };
+
+  const unreadOrderCount = notifications.filter((n) =>
+    [
+      "PROCESSING",
+      "DELIVERING",
+      "PENDING",
+      "COMPLETED",
+      "UNCOMPLETED",
+    ].includes(n.type)
+  ).length;
 
   return (
     <nav className={`menu-user ${isHoveringMenu ? "hovered" : ""}`}>
@@ -86,7 +98,15 @@ const MenuDesktop = ({ setOpenModal }) => {
                 onMouseLeave={() => setIsHoveringMenu(false)}>
                 <Link to="/Cart">
                   <FaUserCog className="menu-user-tool-icon" />
-                  <span>Tài khoản</span>
+                  <div className="cart-icon-wrapper">
+                    {unreadOrderCount > 0 && (
+                      <span className="notification-badge-overview">
+                        {unreadOrderCount}
+                      </span>
+                    )}
+
+                    <span>Tài khoản</span>
+                  </div>
                 </Link>
                 <ul>
                   <div className="menu-user-account-tool">
@@ -111,6 +131,19 @@ const MenuDesktop = ({ setOpenModal }) => {
                       <Link to="/dashboard/orders">
                         <span>Đơn hàng</span>
                         <RiBillLine className="menu-user-tool-icon" />
+                        {unreadOrderCount > 0 && (
+                          <span
+                            className="notification-badge-overview"
+                            style={{
+                              top: "3px",
+                              right: "3px",
+                              color: "white",
+                              fontSize: "10px",
+                              fontWeight: "bold",
+                            }}>
+                            {unreadOrderCount}
+                          </span>
+                        )}
                       </Link>
                     </li>
                     <li>

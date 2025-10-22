@@ -13,6 +13,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaBars } from "react-icons/fa";
 import { getImageUrl, handleLogoutConfirm } from "./commonFunc";
 import "../css/MenuMobile.css";
+import { useNotifications } from "./NotificationContext";
 
 const MenuMobile = ({ setOpenModal }) => {
   const token = localStorage.getItem("token");
@@ -33,6 +34,17 @@ const MenuMobile = ({ setOpenModal }) => {
   const { user } = useUser();
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+  const { notifications, fetchNotifications } = useNotifications();
+
+  const unreadOrderCount = notifications.filter((n) =>
+    [
+      "PROCESSING",
+      "DELIVERING",
+      "PENDING",
+      "COMPLETED",
+      "UNCOMPLETED",
+    ].includes(n.type)
+  ).length;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -120,14 +132,26 @@ const MenuMobile = ({ setOpenModal }) => {
                 <li
                   onClick={toggleAccountMenu}
                   className="user-menu-mobile-account">
+                  {unreadOrderCount > 0 && (
+                    <span
+                      className="notification-badge-overview"
+                      style={{ top: "-5px", right: "-5px" }}>
+                      {unreadOrderCount}
+                    </span>
+                  )}
                   <img
-                    src={user?.avatar ? getImageUrl(user?.avatar) : "/image/default-avatar-profile.jpg"}
+                    src={
+                      user?.avatar
+                        ? getImageUrl(user?.avatar)
+                        : "/image/default-avatar-profile.jpg"
+                    }
                     alt={user?.full_name}
                     className="user-menu-mobile-avatar"
                   />
                   <ul
-                    className={`user-menu-mobile-account-submenu ${accountMenuActive ? "active" : ""
-                      }`}>
+                    className={`user-menu-mobile-account-submenu ${
+                      accountMenuActive ? "active" : ""
+                    }`}>
                     <div className="user-menu-mobile-account-tool">
                       <h4>
                         <p>{user?.full_name}</p>
@@ -142,6 +166,13 @@ const MenuMobile = ({ setOpenModal }) => {
                         <Link to="/dashboard/orders">
                           <span>Đơn hàng</span>
                           <RiBillLine className="user-menu-mobile-tool-icon" />
+                          {unreadOrderCount > 0 && (
+                            <span
+                              className="notification-badge-overview"
+                              style={{ top: "3px", right: "3px" }}>
+                              {unreadOrderCount}
+                            </span>
+                          )}
                         </Link>
                       </li>
                       <li>
@@ -209,9 +240,7 @@ const MenuMobile = ({ setOpenModal }) => {
             <ul className="user-menu-mobile-submenu">
               {brands.map((brand) => (
                 <li key={brand.id}>
-                  <Link to={`/product?brand=${brand.name}`}>
-                    {brand.name}
-                  </Link>
+                  <Link to={`/product?brand=${brand.name}`}>{brand.name}</Link>
                 </li>
               ))}
             </ul>
