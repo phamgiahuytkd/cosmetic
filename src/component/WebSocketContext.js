@@ -3,12 +3,14 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNotifications } from "./NotificationContext";
 
 export const WebSocketContext = createContext();
 
 export const WebSocketProvider = ({ children, userId, onOrderUpdate }) => {
   const [connected, setConnected] = useState(false);
   const clientRef = useRef(null);
+  const { notifications, fetchNotifications } = useNotifications();
 
   useEffect(() => {
     const socketUrl =
@@ -63,6 +65,7 @@ export const WebSocketProvider = ({ children, userId, onOrderUpdate }) => {
             }
 
             // Gọi callback fetch lại đơn hàng
+            fetchNotifications();
             onOrderUpdate && onOrderUpdate();
           }
         });
